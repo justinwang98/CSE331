@@ -6,14 +6,16 @@ Name:  <replace this with your name>
 Problem 6.
 
 (a)
-
+It failed because there was a <= when comparing to 0, which made the program think that 0 was negative.
 
 (b)
-
+It failed because there was a <= when compared to 2, which made the program set 2 to 1 instead of just returning 2.
 
 (c)
-
+It failed because there was a - sign instead of a + so it was subtracting the two previous digits instead of adding
+them as the fibonacci sequence is supposed to.
 
 Problem 7. 
 
-<replace this line with your answers>
+I replaced volume=volume with this.volume = volume in order to clarify to the system what was being assigned where,
+I also did the same for the getvolume method.
