@@ -1,5 +1,8 @@
 package hw1;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -10,6 +13,7 @@ public class Box implements Iterable<Ball> {
 
   /** ballContainer is used to internally store balls for this Box. */
   private BallContainer ballContainer;
+  private double maxVolume;
 
   /**
    * Constructor that creates a new box.
@@ -17,8 +21,8 @@ public class Box implements Iterable<Ball> {
    * @param maxVolume total volume of balls that this box can contain
    */
   public Box(double maxVolume) {
-    // Your code goes here.  Remove the exception after you're done.
-    throw new RuntimeException("Method not implemented");
+    ballContainer = new BallContainer();
+    this.maxVolume = maxVolume;
   }
 
   /**
@@ -41,8 +45,12 @@ public class Box implements Iterable<Ball> {
    *     box was too full to contain the new ball.
    */
   public boolean add(Ball b) {
-    // Your code goes here.  Remove the exception after you're done.
-    throw new RuntimeException("Method not implemented");
+    if ((b.getVolume() + ballContainer.getVolume()) > maxVolume || ballContainer.contains(b)) {
+      return false;
+    } else{
+      ballContainer.add(b);
+      return true;
+    }
   }
 
   /**
@@ -52,8 +60,19 @@ public class Box implements Iterable<Ball> {
    * @return an iterator that yields all the balls in this box in order of ascending size
    */
   public Iterator<Ball> getBallsFromSmallest() {
-    // Your code goes here.  Remove the exception after you're done.
-    throw new RuntimeException("Method not implemented");
+      ArrayList<Ball> sortedBalls = new ArrayList<Ball>();
+      Iterator<Ball> iter = ballContainer.iterator();
+      while(iter.hasNext())  {
+          sortedBalls.add(iter.next());
+      }
+      Comparator<Ball> compare = new Comparator<Ball>() {
+          @Override
+          public int compare(Ball o1, Ball o2) {
+              return (int) (o1.getVolume() - o2.getVolume());
+          }
+      };
+    Collections.sort(sortedBalls, compare);
+    return sortedBalls.iterator();
   }
 
   /**

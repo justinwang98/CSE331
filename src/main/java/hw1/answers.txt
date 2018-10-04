@@ -1,5 +1,5 @@
 CSE 331 Homework 1.  Answers to Written questions.
-Edit this file to supply your answers.
+Justin WAng
 
 Name:  <replace this with your name>
 
@@ -19,3 +19,8 @@ Problem 7.
 
 I replaced volume=volume with this.volume = volume in order to clarify to the system what was being assigned where,
 I also did the same for the getvolume method.
+One way you can implement getballsfromsmallest() is to make a comparator and use collections.sort in order to sort the balls.
+So that you sort in the function.
+Another way is to presort whenever you add a ball into the box, that way the function simply returns the already sorted collection.
+I think the better way is to use the comparator to sort all at once when you call the method unless you need the set to be sorted all the time
+since sorting is expensive.
