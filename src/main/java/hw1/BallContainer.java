@@ -15,7 +15,7 @@ public class BallContainer implements Iterable<Ball> {
   private Set<Ball> contents;
 
   /**  Total Volume the all the balls */
-  private int totalVolume;
+  private double totalVolume;
 
   /** Constructor that creates a new ballcontainer. */
   public BallContainer() {
@@ -98,7 +98,7 @@ public class BallContainer implements Iterable<Ball> {
 
   /** Empties the container, i.e. removes all its contents. */
   public void clear() {
-    contents.removeAll(contents);
+    contents.clear();
     totalVolume = 0;
   }
 
