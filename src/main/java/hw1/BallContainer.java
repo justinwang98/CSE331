@@ -11,8 +11,10 @@ import java.util.Set;
  */
 public class BallContainer implements Iterable<Ball> {
 
-  // Contents of the BallContainer.
+  /** Contents of the BallContainer. */
   private Set<Ball> contents;
+
+  /**  Total Volume the all the balls */
   private int totalVolume;
 
   /** Constructor that creates a new ballcontainer. */
