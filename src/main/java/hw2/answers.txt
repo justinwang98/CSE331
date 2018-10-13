@@ -18,7 +18,7 @@ r = p * q:
 q = n / d + r:
       quotient q = 0
       remainder r = numerator n
-      while degree of denominator d >= 0:
+      while r > 0 and degree of r >= degree of denominator d
          set term lt to lead term of r, lt_r/ lead term of d, lt_d
          set q to q + lt
          for each term t_d in d:
@@ -32,7 +32,7 @@ d = x + 1
 
 quotient q = 0
 [remainder r = numerator n] r = x^3 + x - 1
-while degree of r > 0:
+while degree of r > 0 and degree of r >= degree of d:
      Iteration 1: q = 0, n = (x^3 + x - 1), d  = (x + 1), r = (x^3 + x - 1)
      [set term lt to lead term of r, lt_r/ lead term of d, lt_d] lt = (x ^ 3 / x) = (x^2)
      [set q to q + lt] (q = x^2)
@@ -101,3 +101,7 @@ current implementation of the class has every method returning a new NaN, whenev
 are good as they do nothing but add more conditions and complications to the problem.
 
 Problem 5.
+y = x^4 - 8x^2
+y = 6x^3 + x^2
+y = 3x^7 - x^5 + 2x
+y = 8x^2 - 5

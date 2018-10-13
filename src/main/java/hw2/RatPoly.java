@@ -148,6 +148,19 @@ public final class RatPoly {
     return false;
   }
 
+
+  /**
+   * Copies of all the terms in RatPoly to a new Array
+   * @return a new array which is a copy of all the terms in RatPoly
+   */
+  private ArrayList<RatTerm> copy() {
+    ArrayList<RatTerm> copy = new ArrayList<RatTerm>();
+    for (int i = 0; i < terms.size(); i++) {
+      copy.add(new RatTerm(terms.get(i).getCoeff(), terms.get(i).getExpt()));
+    }
+    return copy;
+  }
+
   /**
    * Scales coefficients within 'lst' by 'scalar' (helper procedure).
    *
@@ -237,14 +250,12 @@ public final class RatPoly {
    * @return a RatPoly equal to "0 - this"; if this.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly negate() {
-    if (this.isNaN()) {
-      return NaN;
+    if (isNaN()) {
+      return new RatPoly(RatTerm.NaN);
     } else {
-      RatPoly poly2 = new RatPoly(terms);
-      for (int i = 0; i < poly2.terms.size(); i++) {
-        poly2.terms.set(i, poly2.terms.get(i).negate());
-      }
-      return poly2;
+      ArrayList<RatTerm> copy = copy();
+      scaleCoeff(copy, new RatNum(-1));
+      return new RatPoly(copy);
     }
   }
 
@@ -260,11 +271,10 @@ public final class RatPoly {
     if (this.isNaN() || p.isNaN()) { // if either this or p is NaN then return new NaN
       return NaN;
     } else  {
-      RatPoly poly2 = new RatPoly(terms);
-      for (RatTerm tp : p.terms) {
-        sortedInsert(poly2.terms, tp);
-      }
-      return poly2;
+      ArrayList<RatTerm> temp = p.copy();
+      for (RatTerm rt : terms)
+        sortedInsert(temp, rt);
+      return new RatPoly(temp);
     }
   }
 
@@ -294,15 +304,17 @@ public final class RatPoly {
    */
   public RatPoly mul(RatPoly p) {
     if (this.isNaN() || p.isNaN()) {
-      return NaN;
-    } else  {
-      RatPoly poly2 = new RatPoly();
-      for (RatTerm tp : p.terms) {
-        for (RatTerm tp2 : this.terms) {
-          sortedInsert(poly2.terms, new RatTerm(tp.getCoeff().mul(tp2.getCoeff()), tp.getExpt() + tp2.getExpt()));
-        }
+      return new RatPoly(RatTerm.NaN);
+    } else {
+      RatPoly poly = new RatPoly();
+      for (RatTerm tm : terms) {
+        ArrayList<RatTerm> temp = p.copy();
+        scaleCoeff(temp, tm.getCoeff());
+        incremExpt(temp, tm.getExpt());
+        poly = poly.add(new RatPoly(temp));
       }
-      return poly2;
+      poly.checkRep();
+      return poly;
     }
   }
 
@@ -332,9 +344,9 @@ public final class RatPoly {
       RatPoly polyResult = new RatPoly();
       RatPoly polyRemainder = new RatPoly(this.terms);
       while (polyRemainder.terms.size() != 0 && polyRemainder.degree() >= p.degree()) {
-          RatPoly temp = new RatPoly(polyRemainder.terms.get(0).div(p.terms.get(0)));
-          polyResult.add(temp);
-          polyRemainder.sub(temp.mul(p));
+        RatPoly temp = new RatPoly(polyRemainder.terms.get(0).div(p.terms.get(0)));
+        polyResult = polyResult.add(temp);
+        polyRemainder = polyRemainder.sub(temp.mul(p));
       }
       polyResult.checkRep();
       return polyResult;
@@ -352,11 +364,16 @@ public final class RatPoly {
     if (this.isNaN()) {
       return NaN;
     } else  {
-      RatPoly poly2 = new RatPoly();
-      for (RatTerm tp : terms) {
-        sortedInsert(poly2.terms, tp.differentiate());
+      ArrayList<RatTerm> copy = copy();
+      for (int i = 0; i < copy.size(); i++) {
+        if (copy.get(i).getExpt() == 0) {
+          copy.remove(i);
+          i--;
+        } else {
+          copy.set(i, copy.get(i).differentiate());
+        }
       }
-      return poly2;
+      return new RatPoly(copy);
     }
   }
 
@@ -376,7 +393,7 @@ public final class RatPoly {
     if (this.isNaN() || integrationConstant.isNaN())
       return NaN;
 
-    List<RatTerm> temp = this.terms;
+    ArrayList<RatTerm> temp = copy();
     for (int i = 0; i < temp.size(); i++)
       temp.set(i, temp.get(i).antiDifferentiate());
     if (!integrationConstant.equals(RatNum.ZERO))
@@ -399,14 +416,11 @@ public final class RatPoly {
    *     Double.NaN, return Double.NaN.
    */
   public double integrate(double lowerBound, double upperBound) {
-    if ( this.isNaN() || lowerBound == Double.NaN || upperBound == Double.NaN) {
+    if (this.isNaN() || Double.isNaN(lowerBound) || Double.isNaN(upperBound)) {
       return Double.NaN;
     } else {
-      RatPoly poly2 = new RatPoly(terms);
-      RatPoly poly3 = new RatPoly(terms);
-      poly2.antiDifferentiate(RatNum.ZERO);
-      poly3.antiDifferentiate(RatNum.ZERO);
-      return poly2.eval(upperBound) - poly3.eval(lowerBound);
+      RatPoly temp = antiDifferentiate(new RatNum(1));
+      return temp.eval(upperBound) - temp.eval(lowerBound);
     }
   }
 
