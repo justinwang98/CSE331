@@ -1,0 +1,12 @@
+# Tests that a graph can be created, and two nodes can be added
+# and if the nodes can be printed.
+
+# Create a graph
+CreateGraph graph1
+
+# Add two nodes
+AddNode graph1 n1 n2
+
+# Print the nodes in the graph and the outgoing edges from n1 and n2
+ListNodes graph1
+ListChildren graph1 n1

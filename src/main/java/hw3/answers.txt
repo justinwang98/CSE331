@@ -1,21 +1,87 @@
 CSE 331 Homework 3.  Answers to Written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Justin Wang
 
 Problem 1. (Written exercises)
 
 (a)
+    1.
+        Abstraction Function:
+        The nth element in the queue = entries.indexOf(n - 1)
 
+        Rep Invariant:
+        entries never contains a null value
+
+    2.
+        Abstraction Function:
+        entries: array that contains the queue
+        front: first element in the queue
+        size: size of the queue
+
+
+        Rep Invariant:
+
+        entries.size >= INITIAL_SIZE
+        0 <= front <= entries.size
+        int size <= entries.size
+        for any element e: front <= (front + e) % entries.size <= (front + size - 1) % entries.size
+        any element n in the queue != null
 
 (b)
-
+    a,g,d
+    b,h
+    c,f
+    e
 
 (c)
+    1.
+        The method would not be able to expose the representation, because there are only primitives (ints) being passed
+        in. As well as the return parameter is an int, which follows the same rules as an immutable int.
+    2.
+        Although you are passing in a primitive, the return in an array of strings. This means that during the method,
+        the user can modify the returned string array by making their own and returning that. Then they would be able to
+        expose the rep invariant as the rest of the methods would use the users array.
+    3.
+        This method being private means that it specifically cannot be modified by an external user, but it has
+        another issue. The issue lies in how the method returns a date which is a potentially mutable object, if a user
+        utilizes the private method and then changes the date in another public method then the representation is exposed.
+    4.
+        This should not expose the representation, because the returned parameter is a string. Since the string is an
+        immutable object, it is not possible for the user to expose the representation.
+    5.
+        Since this method returns an Iterator over Integers it's still mutable which means there is a chance for it to
+        expose the representation. If the user calls their own integer iterator and return it they would have access to
+        the representation.
 
+    6.
+        Since this constructor is creating a Deck object, it is still mutable and has a chance to expose the representation.
+        Also with the parameter to be passed in being a List of cards, which is mutable, it means there could be a possible
+        exposure from that as well.
 
 Problem 2.  (Graph interface/operations)
+The graph itself is mutable, since I thought that having more checkreps outweighs the cost of having to copy the underlying
+structure every time.
+I decided upon utilizing a class for both the edge and node along with a class for Graph, my reasoning for this was
+because having their own classes allows for more clarity to the user and less code being bundled up into a "super" class.
+I felt like there was no need to have a java interface given the classes that I have.
+The user should only be able to specify what sorts of nodes and edges go in the graph with both constructors and insert
+methods, but not add multiple at the same time.
+The nodes and edges will have iterators over them when appropriate utilizing the set iterator.
+The only java collections used is the hashset and there will be no views or interfaces since they aren't necessary.
 
+For Edges, I only included getters for the fields in order to encapsulate them.
+For Nodes, I had an overloaded constructor in case the user wanted to create a singular node or one connected to something.
+I also had getters for the fields in order to keep encapsulation. I included a contains method in order to allow the user
+to find out if the node a speciic out-edge tied to it, I also included a clear method to let the user get rid of all edges.
+Standard add and remove methods were added so that the user can freely change the out-edges in the node. I needed to add an
+iterator to allow the user to be able to access the set elements, and I added a size method to let the user see how many
+out-edges a node had. In the end I also had a checkrep to check the representation invariant.
+Graph, I made getters for the fields and basic add and remove node functions to allow for free manipulation of the graph
+and the nodes inside. I also had a method that checks if the set of nodes is empty and another to clear to allow the user
+to further see and manipulate the nodes. I put size so that users would be able to find out how many nodes in the graph
+and an iterator to let the user parse through the nodes. I also had a checkrep just to check for representation invariant
+breaks.
 
 
 Problem 3.  (Testing strategy)
