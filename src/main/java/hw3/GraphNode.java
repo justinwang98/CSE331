@@ -57,7 +57,7 @@ public class GraphNode {
      * Returns a copy of the set of edges
      * @return a set which is a copy of the set of edges
      */
-    public Set<GraphNode> getChildren() {
+    public Set<GraphNode> getEdges() {
         throw new NotImplementedException();
     }
 

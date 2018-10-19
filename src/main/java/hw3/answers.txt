@@ -85,7 +85,15 @@ breaks.
 
 
 Problem 3.  (Testing strategy)
+For my Specifications tests, I took the 0, 1, 2 testing strategy by utilizing every single viable combination of nodes
+and edges with up until 2. This allowed me to cover essentially every possible different combination for the nodes and
+edges. I was able to test for floating nodes and a node that has an edge pointing to itself.
 
+For the Implementation tests, I also followed the general testing strategy explained in the spec with the 0, 1, 2
+method. For almost every test that allowed it, I went by this rule to see if I could find any differences between the
+method being used with various amounts of testable objects. This was the commonality that I had between my specification
+tests and my implementation tests. The attempted to order the tests in a way that allowed me to test for basic
+functionality before I went to test more advanced methods/ones that called the previous methods.
 
 
 
