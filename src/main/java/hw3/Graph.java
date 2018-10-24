@@ -14,13 +14,14 @@ import java.util.Set;
  * nodes != null
  */
 public class Graph {
-    private HashSet<GraphNode> nodes; // The set of nodes that represent the graph
+    private Set<GraphNode> nodes; // The set of nodes that represent the graph
 
     /**
      * Graph Constructor
      */
     public Graph() {
-        throw new NotImplementedException();
+        nodes = new HashSet<GraphNode>();
+        checkRep();
     }
 
     /**
@@ -28,7 +29,14 @@ public class Graph {
      * @return a copy of nodes
      */
     public Set<GraphNode> getNodes() {
-        throw new NotImplementedException();
+        checkRep();
+        Iterator<GraphNode> iter = nodes.iterator();
+        Set<GraphNode> copy = new HashSet<GraphNode>();
+        while (iter.hasNext()) { //copy every node in nodes to copy
+            copy.add(iter.next());
+        }
+        checkRep();
+        return copy;
     }
     /**
      * Adds a node to the graph
@@ -38,7 +46,9 @@ public class Graph {
      * @effects adds a node to the nodes set
      */
     public void add(GraphNode node) {
-        throw new NotImplementedException();
+        checkRep();
+        nodes.add(node);
+        checkRep();
     }
 
     /**
@@ -49,7 +59,9 @@ public class Graph {
      * @effects removes a node from the nodes set
      */
     public void remove(GraphNode node) {
-        throw new NotImplementedException();
+        checkRep();
+        nodes.remove(node);
+        checkRep();
     }
 
     /**
@@ -57,7 +69,8 @@ public class Graph {
      * @return boolean of the state of emptiness of the node set
      */
     public boolean isEmpty() {
-        throw new NotImplementedException();
+        checkRep();
+        return nodes.isEmpty();
     }
 
     /**
@@ -66,7 +79,9 @@ public class Graph {
      * @effects removes all nodes in nodes(set)
      */
     public void clear() {
-        throw new NotImplementedException();
+        checkRep();
+        nodes.clear();
+        checkRep();
     }
 
     /**
@@ -74,7 +89,8 @@ public class Graph {
      * @return an int representing the size of the node set
      */
     public int size() {
-        throw new NotImplementedException();
+        checkRep();
+        return nodes.size();
     }
 
     /**
@@ -82,13 +98,22 @@ public class Graph {
      * @return iterator that goes over nodes
      */
     public Iterator<GraphNode> iterator() {
-        throw new NotImplementedException();
+        checkRep();
+        return nodes.iterator();
+    }
+
+    public equals() {
+        //TODO
+    }
+
+    public hashcode() {
+        //TODO
     }
 
     /**
      * Checks if the representation invariant holds
      */
     public void checkRep() {
-        throw new NotImplementedException();
+        assert(nodes != null);
     }
 }

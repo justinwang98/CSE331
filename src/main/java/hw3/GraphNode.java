@@ -2,6 +2,7 @@ package hw3;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -23,16 +24,22 @@ public class GraphNode {
      * @param content is the value to be put into the node
      */
     public GraphNode(String content) {
-        throw new NotImplementedException();
+        this.content = content;
+        edges = new HashSet<GraphEdge>();
+        checkRep();
     }
 
     /**
      * Constructor for the node with edges to other nodes
      * @param content is the value to be put into the node
      * @param dest is the destination node of the edge from this node
+     * @param edgeLabel is the label to be placed on the edge from this node to the dest node
      */
-    public GraphNode(String content, GraphNode dest) {
-        throw new NotImplementedException();
+    public GraphNode(String content, GraphNode dest, String edgeLabel) {
+        this.content = content;
+        edges = new HashSet<GraphEdge>();
+        this.edges.add(new GraphEdge(dest, edgeLabel));
+        checkRep();
     }
 
     /**
@@ -40,7 +47,8 @@ public class GraphNode {
      * @return the string/value stored in the node
      */
     public String getContent() {
-        throw new NotImplementedException();
+        checkRep();
+        return content;
     }
 
     /**
@@ -50,15 +58,23 @@ public class GraphNode {
      * @return boolean of whether edge e is held by this node
      */
     public boolean contains(GraphEdge edge) {
-        throw new NotImplementedException();
+        checkRep();
+        return edges.contains(edge);
     }
 
     /**
      * Returns a copy of the set of edges
      * @return a set which is a copy of the set of edges
      */
-    public Set<GraphNode> getEdges() {
-        throw new NotImplementedException();
+    public Set<GraphEdge> getEdges() {
+        checkRep();
+        Iterator<GraphEdge> iter = edges.iterator();
+        Set<GraphEdge> copy = new HashSet<GraphEdge>();
+        while (iter.hasNext()) { //copy every node in nodes to copy
+            copy.add(iter.next());
+        }
+        checkRep();
+        return copy;
     }
 
     /**
@@ -67,7 +83,9 @@ public class GraphNode {
      * @effects removes all the edges in the edges set
      */
     public void clear() {
-        throw new NotImplementedException();
+        checkRep();
+        edges.clear();
+        checkRep();
     }
 
     /**
@@ -78,7 +96,9 @@ public class GraphNode {
      * @effects adds an additional edge to edges
      */
     public void add(GraphEdge edge) {
-        throw new NotImplementedException();
+        checkRep();
+        edges.add(edge);
+        checkRep();
     }
 
     /**
@@ -89,7 +109,9 @@ public class GraphNode {
      * @effects removes an edge from the set of edges
      */
     public void remove(GraphEdge edge) {
-        throw new NotImplementedException();
+        checkRep();
+        edges.remove(edge);
+        checkRep();
     }
 
     /**
@@ -97,7 +119,8 @@ public class GraphNode {
      * @return an iterator over the edges in the set edges
      */
     public Iterator<GraphEdge> iterator() {
-        throw new NotImplementedException();
+        checkRep();
+        return edges.iterator();
     }
 
     /**
@@ -105,13 +128,23 @@ public class GraphNode {
      * @return the size as an int of the set of edges, edges
      */
     public int size() {
-        throw new NotImplementedException();
+        checkRep();
+        return edges.size();
+    }
+
+    public equals() {
+        //TODO
+    }
+
+    public hashcode() {
+        //TODO
     }
 
     /**
      * Checks to see if the representation invariant holds
      */
     public void checkRep() {
-        throw new NotImplementedException();
+        assert (content != null);
+        assert (edges != null);
     }
 }

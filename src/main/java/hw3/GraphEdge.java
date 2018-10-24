@@ -1,8 +1,5 @@
 package hw3;
 
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Represents an edge in a graph.
  * @spec.specfield destination : GraphNode //
@@ -23,22 +20,23 @@ public class GraphEdge {
      * @requires dest != null & label != null
      */
     public GraphEdge(GraphNode dest, String label) {
-        throw new NotImplementedException();
+        this.destination = dest;
+        this.label = label;
     }
 
     /**
      * Getter for destination
      * @return the destination node
      */
-    public GraphNode getDestination() {
-        throw new NotImplementedException();
+    public GraphNode getDestination(){
+        return destination;
     }
 
     /**
      * Getter for label
      * @return label for the edge
      */
-    public String getLabel() {
-        throw new NotImplementedException();
+    public String getLabel(){
+        return label;
     }
 }

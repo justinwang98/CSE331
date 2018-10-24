@@ -1,18 +1,30 @@
 CSE 331 Homework 4.  Answers to Written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Justin Wang
 
 Problem 1. (Choosing a representation)
 
 (a)
-
-
+As a collection of edges.
+    - The space complexity is O(E) since every single edge is represented, which is space efficient and the implementation
+    would be simple, but and the run time of edge lookups would be a painful O(E) for all edges.
+As an adjacency list, in which each node is associated with a list of its outgoing edges.
+    - The space complexity is a bit less at O(N + E_out), and the implementation is a bit more difficult, but the run time of
+    edge lookups is fairly fast at a runtime of O(E_out) for the out edges in a given node N.
+As an adjacency matrix, which explicitly represents, for every pair ⟨A,B⟩ of edges, whether there is a link from A to B, and how many.
+    - The space complexity would be O(N^2) which isn't the best, but the implementation is fairly straight forward, and
+    the look up time is solid at generally O(1) for edge lookups.
 (b)
-
+I chose the adjacency list, since the generally they are better for non-densely populated graphs. They take up not too
+much space, and the run times are usually ideal for most cases. Without knowledge of how this graph is going to be utilized,
+the safest choice is usually to make an adjacency list, although in my case I created an adjacency set.
 
 Problem 4.  (Additional tests and changes to specifications)
 
+Changed Graph and GraphNode to include equals and hashcode
+Added a edge label to graphnode constructor.
+Edited getedges to properly return edge set
 
 
 
