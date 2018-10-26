@@ -140,7 +140,7 @@ public class GraphNode {
      * @param other: object to be compared
      * @return whether other equals this
      */
-    public boolean equals(Object other) {
+    @Override public boolean equals(Object other) {
         checkRep();
         if (!(other instanceof GraphNode)) {
             checkRep();
@@ -164,7 +164,7 @@ public class GraphNode {
      * Returns a hashcode for the function
      * @return int: hashcode of the function
      */
-    public int hashCode() {
+    @Override public int hashCode() {
         return 53 * edges.hashCode() + 37 * content.hashCode();
     }
 
