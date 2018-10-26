@@ -106,7 +106,7 @@ public class Graph {
      * @param other: object to be compared
      * @return whether this and object are equal
      */
-    public boolean equals(Object other) {
+    @Override public boolean equals(Object other) {
         checkRep();
         if (!(other instanceof Graph)) {
             checkRep();
@@ -127,7 +127,7 @@ public class Graph {
      * Returns a hashcode for this
      * @return a hashcode for this
      */
-    public int hashCode() {
+    @Override public int hashCode() {
         return 37 * nodes.hashCode();
     }
 
