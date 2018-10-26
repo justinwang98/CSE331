@@ -5,7 +5,7 @@ package hw3;
  * @spec.specfield destination : GraphNode //
  * @spec.specfield label : String //
  *
- * Abstract invariant:
+ * Rep invariant:
  *  edge cannot be null, string cannot be null
  */
 public class GraphEdge {
@@ -29,6 +29,7 @@ public class GraphEdge {
      * @return the destination node
      */
     public GraphNode getDestination(){
+        checkRep();
         return destination;
     }
 
@@ -38,5 +39,41 @@ public class GraphEdge {
      */
     public String getLabel(){
         return label;
+    }
+
+    /**
+     * Returns whether the other equals this
+     * @param other: object to be compared
+     * @return whether this equals others
+     */
+    public boolean equals(Object other) {
+        checkRep();
+        if (!(other instanceof GraphNode)) {
+            checkRep();
+            return false;
+        } else {
+            checkRep();
+            GraphEdge otherEdge = (GraphEdge) other;
+            if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns a hashcode for the function
+     * @return int: hashcode of the function
+     */
+    public int hashCode() {
+        return 31 * label.hashCode();
+    }
+
+    /**
+     * Checks to see if the representation invariant holds
+     */
+    private void checkRep() {
+        assert (label != null);
+        assert (destination != null);
     }
 }

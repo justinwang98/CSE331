@@ -1,6 +1,5 @@
 package hw3;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,7 +10,7 @@ import java.util.Set;
  * @spec.specfield content: String // the content held by a node
  * @spec.specfield edges : Set<GraphEdge> // the out-edges a node has
  *
- * Abstraction Invariant:
+ * Rep Invariant:
  * content != null, edges != null
  */
 public class GraphNode {
@@ -47,14 +46,13 @@ public class GraphNode {
      * @return the string/value stored in the node
      */
     public String getContent() {
-        checkRep();
         return content;
     }
 
     /**
      * Returns a boolean representing if the node contains an edge
      * @param edge out-edge of which to check if the node contains
-     * @requires edge != null
+     * @spec.requires edge != null
      * @return boolean of whether edge e is held by this node
      */
     public boolean contains(GraphEdge edge) {
@@ -91,7 +89,7 @@ public class GraphNode {
     /**
      * Adds an edge to the node
      * @param edge: the edge to be added
-     * @requires edge != null
+     * @spec.requires edge != null
      * @modifies edges
      * @effects adds an additional edge to edges
      */
@@ -104,7 +102,7 @@ public class GraphNode {
     /**
      * Removes an edge from the node
      * @param edge: edge to be removed
-     * @requires edge != null
+     * @spec.requires edge != null
      * @modifies edges
      * @effects removes an edge from the set of edges
      */
@@ -132,18 +130,40 @@ public class GraphNode {
         return edges.size();
     }
 
-    public equals() {
-        //TODO
+    /**
+     * Returns whether the other equals this
+     * @param other: object to be compared
+     * @return whether other equals this
+     */
+    public boolean equals(Object other) {
+        checkRep();
+        if (!(other instanceof GraphNode)) {
+            checkRep();
+            return false;
+        } else {
+            checkRep();
+            GraphNode otherNode = (GraphNode) other;
+            for (GraphEdge e : this.edges) {
+                if (!otherNode.getEdges().contains(e)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    public hashcode() {
-        //TODO
+    /**
+     * Returns a hashcode for the function
+     * @return int: hashcode of the function
+     */
+    public int hashCode() {
+        return 53 * edges.hashCode() + 37 * content.hashCode();
     }
 
     /**
      * Checks to see if the representation invariant holds
      */
-    public void checkRep() {
+    private void checkRep() {
         assert (content != null);
         assert (edges != null);
     }

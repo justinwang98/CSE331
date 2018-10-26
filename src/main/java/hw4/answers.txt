@@ -25,6 +25,13 @@ Problem 4.  (Additional tests and changes to specifications)
 Changed Graph and GraphNode to include equals and hashcode
 Added a edge label to graphnode constructor.
 Edited getedges to properly return edge set
+Changed all @requires to be @spec.requires
+Modified GraphNodeTest.getEdgesTest to properly compare the correct graphedge sets
+Modified GraphNodeTest.getSizeTest to properly compare the correct graphedge sets
+Modified Graph.clearTest to add the clear method before comparing
+Added equals and hashcode for all classes
+Edited the syntax of tests in order for them to pass
 
-
-
+I feel like the tests that I created followed the 0,1,2 heuristic and cover the majority of the bases that would be applicable
+in both the implementation test cases and the test script cases. Any other tests would simply be repetitive and testing
+for the same issues.

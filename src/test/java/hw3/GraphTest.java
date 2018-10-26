@@ -1,12 +1,15 @@
 package hw3;
 
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
 public class GraphTest {
+    @Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
 
     @Test
     public void constructorTest() {
@@ -84,6 +87,7 @@ public class GraphTest {
         GraphNode foo2 = new GraphNode("test6");
         g.add(foo);
         g.add(foo2);
+        g.clear();
         assertTrue(g.isEmpty());
     }
 

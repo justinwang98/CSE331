@@ -1,6 +1,5 @@
 package hw3;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,8 +9,9 @@ import java.util.Set;
  * Represents a multigraph without duplicate edges
  * @spec.specfield nodes : HashSet<GraphNode> // The set of nodes that represent the graph
  *
- * Abstraction Invariant:
+ * Rep Invariant:
  * nodes != null
+ *
  */
 public class Graph {
     private Set<GraphNode> nodes; // The set of nodes that represent the graph
@@ -41,7 +41,7 @@ public class Graph {
     /**
      * Adds a node to the graph
      * @param node: node to be added
-     * @requires node != null
+     * @spec.requires node != null
      * @modifies nodes
      * @effects adds a node to the nodes set
      */
@@ -54,7 +54,7 @@ public class Graph {
     /**
      * Removes a node from the graph
      * @param node: node to be removed
-     * @requires node != null
+     * @spec.requires node != null
      * @modifies nodes
      * @effects removes a node from the nodes set
      */
@@ -69,7 +69,6 @@ public class Graph {
      * @return boolean of the state of emptiness of the node set
      */
     public boolean isEmpty() {
-        checkRep();
         return nodes.isEmpty();
     }
 
@@ -89,7 +88,6 @@ public class Graph {
      * @return an int representing the size of the node set
      */
     public int size() {
-        checkRep();
         return nodes.size();
     }
 
@@ -102,18 +100,40 @@ public class Graph {
         return nodes.iterator();
     }
 
-    public equals() {
-        //TODO
+    /**
+     * Returns if other and this are equal
+     * @param other: object to be compared
+     * @return whether this and object are equal
+     */
+    public boolean equals(Object other) {
+        checkRep();
+        if (!(other instanceof Graph)) {
+            checkRep();
+            return false;
+        } else {
+            checkRep();
+            Graph otherGraph = (Graph) other;
+            for (GraphNode g : this.nodes) {
+                if (!otherGraph.getNodes().contains(g)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    public hashcode() {
-        //TODO
+    /**
+     * Returns a hashcode for this
+     * @return a hashcode for this
+     */
+    public int hashCode() {
+        return 37 * nodes.hashCode();
     }
 
     /**
      * Checks if the representation invariant holds
      */
-    public void checkRep() {
+    private void checkRep() {
         assert(nodes != null);
     }
 }

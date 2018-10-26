@@ -4,7 +4,7 @@
 # Create a graph
 created graph graph1
 
-# Add one node
+# Add one nodes
 added node n1 to graph1
 
 # Add an edge

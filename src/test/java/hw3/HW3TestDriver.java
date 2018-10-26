@@ -31,9 +31,7 @@ public class HW3TestDriver {
           return;
         }
       }
-
       td.runTests();
-
     } catch (IOException e) {
       System.err.println(e.toString());
       e.printStackTrace(System.err);
@@ -47,8 +45,7 @@ public class HW3TestDriver {
   }
 
   /** String -> Graph: maps the names of graphs to the actual graph * */
-  // TODO for the student: Parameterize the next line correctly.
-  // private final Map<String, _______> graphs = new HashMap<>();
+  private final Map<String, Graph> graphs = new HashMap<>();
   private final PrintWriter output;
 
   private final BufferedReader input;
@@ -121,10 +118,9 @@ public class HW3TestDriver {
   }
 
   private void createGraph(String graphName) {
-    // Insert your code here.
-
-    // graphs.put(graphName, ___);
-    // output.println(...);
+    Graph g = new Graph();
+    graphs.put(graphName, g);
+    output.println("created graph " + graphName);
   }
 
   private void addNode(List<String> arguments) {
@@ -139,10 +135,9 @@ public class HW3TestDriver {
   }
 
   private void addNode(String graphName, String nodeName) {
-    // Insert your code here.
-
-    // ___ = graphs.get(graphName);
-    // output.println(...);
+    Graph g = graphs.get(graphName);
+    g.add(new GraphNode(nodeName));
+    output.println("added node " + nodeName + " to " + graphName);
   }
 
   private void addEdge(List<String> arguments) {
@@ -159,10 +154,21 @@ public class HW3TestDriver {
   }
 
   private void addEdge(String graphName, String parentName, String childName, String edgeLabel) {
-    // Insert your code here.
-
-    // ___ = graphs.get(graphName);
-    // output.println(...);
+    Graph g = graphs.get(graphName);
+    GraphNode dest = null;
+    for (GraphNode node : g.getNodes()) {
+      if (node.getContent().equals(childName)) {
+        dest = node;
+      }
+    }
+    if (dest != null) {
+      for (GraphNode node : g.getNodes()) {
+        if (node.getContent().equals(parentName)) {
+          node.add(new GraphEdge(dest, edgeLabel));
+        }
+      }
+    }
+    output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName + " in " + graphName);
   }
 
   private void listNodes(List<String> arguments) {
@@ -175,10 +181,13 @@ public class HW3TestDriver {
   }
 
   private void listNodes(String graphName) {
-    // Insert your code here.
-
-    // ___ = graphs.get(graphName);
-    // output.println(...);
+    output.print(graphName + " contains: ");
+    Graph g = graphs.get(graphName);
+    Set<GraphNode> list = g.getNodes();
+    for (GraphNode node : list) {
+      output.print(node.getContent() + " ");
+    }
+    output.println();
   }
 
   private void listChildren(List<String> arguments) {
@@ -192,10 +201,16 @@ public class HW3TestDriver {
   }
 
   private void listChildren(String graphName, String parentName) {
-    // Insert your code here.
-
-    // ___ = graphs.get(graphName);
-    // output.println(...);
+    Graph g = graphs.get(graphName);
+    output.print("the children of " + parentName + " in " + graphName + " are: ");
+    for (GraphNode node : g.getNodes()) {
+      if (node.getContent().equals(parentName)) {
+        for (GraphEdge edge : node.getEdges()) {
+          output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ")");
+        }
+      }
+    }
+    output.println();
   }
 
   /** This exception results when the input file cannot be parsed properly. */

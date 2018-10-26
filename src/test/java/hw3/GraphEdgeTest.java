@@ -1,11 +1,14 @@
 package hw3;
 
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
 
 public class GraphEdgeTest {
+    @Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
+
     @Test
     public void testConstructor() {
         new GraphEdge(new GraphNode("bar"), "boo");
