@@ -9,8 +9,9 @@ public class HelloWorld {
 
   /** the greeting to display when this getGreeting() is invoked */
   public static final String GREETING = "Hello World!";
-  /** @param args*/
-  /** @spec.effects prints the string "Hello World!" to the console */
+  /** @spec.effects prints the string "Hello World!" to the console
+   * @param args arguments
+   * */
   public static void main(String[] args) {
     HelloWorld myFirstHW = new HelloWorld();
     System.out.println(myFirstHW.getGreeting());

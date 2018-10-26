@@ -11,7 +11,7 @@ public class HolaWorld extends HelloWorld {
     /**
      * Shows what happens when the getGreeting() method
      * of both HelloWorld and HolaWorld are invoked
-     * @param argv
+     * @param argv arguments
      */
     public static void main(String[] argv) {
 
