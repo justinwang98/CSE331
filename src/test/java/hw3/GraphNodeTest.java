@@ -93,18 +93,7 @@ public class GraphNodeTest {
         GraphEdge bar = new GraphEdge(new GraphNode("test2"),"test3");
         GraphEdge bar2 = new GraphEdge(new GraphNode("test4"),"test5");
         boo.add(bar);
-        for (GraphEdge e : boo.getEdges()) {
-            if (e.equals(bar)) {
-                System.out.println("bar has been found");
-            }
-        }
-        if (!boo.contains(bar)) {
-            System.out.println("bar is not here");
-        }
         boo.add(bar2);
-        if (!boo.contains(bar2)) {
-            System.out.println("bar2 is not here");
-        }
         boo.remove(bar);
         assertEquals(1, boo.size());
 
