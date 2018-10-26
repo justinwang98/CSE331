@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Represents a Node in a Graph
  * @spec.specfield content: String // the content held by a node
- * @spec.specfield edges : Set<GraphEdge> // the out-edges a node has
+ * @spec.specfield edges : Set of GraphEdge // the out-edges a node has
  *
  * Rep Invariant:
  * content != null, edges != null
@@ -77,8 +77,8 @@ public class GraphNode {
 
     /**
      * Clears the set of edges
-     * @modifies edges
-     * @effects removes all the edges in the edges set
+     * @spec.modifies edges
+     * @spec.effects removes all the edges in the edges set
      */
     public void clear() {
         checkRep();
@@ -90,8 +90,8 @@ public class GraphNode {
      * Adds an edge to the node
      * @param edge: the edge to be added
      * @spec.requires edge != null
-     * @modifies edges
-     * @effects adds an additional edge to edges
+     * @spec.modifies edges
+     * @spec.effects adds an additional edge to edges
      */
     public void add(GraphEdge edge) {
         checkRep();
@@ -103,8 +103,8 @@ public class GraphNode {
      * Removes an edge from the node
      * @param edge: edge to be removed
      * @spec.requires edge != null
-     * @modifies edges
-     * @effects removes an edge from the set of edges
+     * @spec.modifies edges
+     * @spec.effects removes an edge from the set of edges
      */
     public void remove(GraphEdge edge) {
         checkRep();
@@ -143,6 +143,9 @@ public class GraphNode {
         } else {
             checkRep();
             GraphNode otherNode = (GraphNode) other;
+            if (!otherNode.getContent().equals(this.content)) {
+                return false;
+            }
             for (GraphEdge e : this.edges) {
                 if (!otherNode.getEdges().contains(e)) {
                     return false;

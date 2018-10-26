@@ -23,6 +23,7 @@ the safest choice is usually to make an adjacency list, although in my case I cr
 Problem 4.  (Additional tests and changes to specifications)
 
 Changed Graph and GraphNode to include equals and hashcode
+Changed GraphNode so that the set of edges is now a list of edges
 Added a edge label to graphnode constructor.
 Edited getedges to properly return edge set
 Changed all @requires to be @spec.requires

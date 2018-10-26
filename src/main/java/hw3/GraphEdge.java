@@ -17,7 +17,7 @@ public class GraphEdge {
      * Constructor for GraphEdge
      * @param dest: destination node
      * @param label: label for the edge
-     * @requires dest != null & label != null
+     * @spec.requires dest != null and label != null
      */
     public GraphEdge(GraphNode dest, String label) {
         this.destination = dest;
@@ -54,6 +54,9 @@ public class GraphEdge {
         } else {
             checkRep();
             GraphEdge otherEdge = (GraphEdge) other;
+            if (!otherEdge.getLabel().equals(this.label)) {
+                return false;
+            }
             if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
                 return false;
             }

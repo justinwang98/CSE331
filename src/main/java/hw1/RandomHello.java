@@ -4,7 +4,9 @@ import java.util.Random;
 /** RandomHello selects and prints a random greeting. */
 public class RandomHello {
 
-    /** Prints a random greeting to the console. */
+    /** Prints a random greeting to the console.
+     * @spec.requires argv
+     * */
     public static void main(String[] argv) {
         RandomHello randomHello = new RandomHello();
         System.out.println(randomHello.getGreeting());
