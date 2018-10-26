@@ -9,9 +9,12 @@ package hw3;
  *  edge cannot be null, string cannot be null
  */
 public class GraphEdge {
-
-    private GraphNode destination; // The node where the edge points to.
-    private String label; // The string label assigned to the edge.
+    /** The node where the edge points to.*/
+    private GraphNode destination;
+    /**
+     * The string label assigned to the edge.
+     */
+    private String label;
 
     /**
      * Constructor for GraphEdge

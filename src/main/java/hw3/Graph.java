@@ -14,7 +14,8 @@ import java.util.Set;
  *
  */
 public class Graph {
-    private Set<GraphNode> nodes; // The set of nodes that represent the graph
+    /** The set of nodes that represent the graph*/
+    private Set<GraphNode> nodes;
 
     /**
      * Graph Constructor

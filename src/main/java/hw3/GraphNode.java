@@ -14,9 +14,14 @@ import java.util.Set;
  * content != null, edges != null
  */
 public class GraphNode {
-
-    private String content; // the value stored by the node
-    private Set<GraphEdge> edges; // the out-edges the node has
+    /**
+     * the value stored by the node
+     */
+    private String content;
+    /**
+     * the out-edges the node has
+     */
+    private Set<GraphEdge> edges;
 
     /**
      * Basic Constructor for the node
