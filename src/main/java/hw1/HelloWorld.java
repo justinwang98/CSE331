@@ -9,7 +9,7 @@ public class HelloWorld {
 
   /** the greeting to display when this getGreeting() is invoked */
   public static final String GREETING = "Hello World!";
-  /** @spec.requires args*/
+  /** @param args*/
   /** @spec.effects prints the string "Hello World!" to the console */
   public static void main(String[] args) {
     HelloWorld myFirstHW = new HelloWorld();

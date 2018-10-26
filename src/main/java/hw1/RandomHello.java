@@ -5,7 +5,7 @@ import java.util.Random;
 public class RandomHello {
 
     /** Prints a random greeting to the console.
-     * @spec.requires argv
+     * @param argv
      * */
     public static void main(String[] argv) {
         RandomHello randomHello = new RandomHello();
