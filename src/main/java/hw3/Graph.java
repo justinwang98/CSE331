@@ -23,7 +23,7 @@ public class Graph {
     /**
      * Graph Constructor
      */
-    public @Initialized Graph() {
+    public Graph() {
         nodes = new HashSet<GraphNode>();
         checkRep();
     }

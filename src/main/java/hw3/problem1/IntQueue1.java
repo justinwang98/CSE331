@@ -1,6 +1,8 @@
 package hw3.problem1;
 
 import org.checkerframework.checker.initialization.qual.Initialized;
+import org.checkerframework.checker.initialization.qual.UnderInitialization;
+import org.eclipse.jgit.annotations.NonNull;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,11 +26,11 @@ public class IntQueue1 {
   // instead with your answers to the other written exercises.
 
   /** Elements in the queue. */
-  List<Integer> entries;
+  @NonNull List<Integer> entries;
 
   /** @spec.effects constructs an empty queue */
   @SuppressWarnings("JdkObsolete")
-  public @Initialized IntQueue1() {
+  public IntQueue1() {
     entries = new LinkedList<Integer>();
     checkRep();
   }
