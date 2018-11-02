@@ -29,7 +29,7 @@ public class IntQueue1 {
   List<Integer> entries;
 
   /** @spec.effects constructs an empty queue */
-  @SuppressWarnings({"JdkObsolete", "UnderInitialization"})
+  @SuppressWarnings({"JdkObsolete", "InvocationHandler"})
   public IntQueue1() {
     entries = new LinkedList<Integer>();
     checkRep();

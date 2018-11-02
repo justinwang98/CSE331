@@ -4,6 +4,7 @@ package hw3;
 import org.checkerframework.checker.initialization.qual.Initialized;
 import org.eclipse.jgit.annotations.Nullable;
 
+import java.lang.reflect.InvocationHandler;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class GraphNode {
      * @param content is the value to be put into the node
      * @spec.requires content != null
      */
-    @SuppressWarnings("UnderInitialization")
+    @SuppressWarnings("InvocationHandler")
     public GraphNode(String content) {
         this.content = content;
         edges = new HashSet<GraphEdge>();
@@ -45,7 +46,7 @@ public class GraphNode {
      * @param edgeLabel is the label to be placed on the edge from this node to the dest node
      * @spec.requires content, dest, edgeLabel != null
      */
-    @SuppressWarnings("UnderInitialization")
+    @SuppressWarnings("InvocationHandler")
     public GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
         edges = new HashSet<GraphEdge>();

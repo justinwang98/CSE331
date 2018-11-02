@@ -23,7 +23,7 @@ public class Graph {
     /**
      * Graph Constructor
      */
-    @SuppressWarnings("UnderInitialization")
+    @SuppressWarnings("InvocationHandler")
     public Graph() {
         nodes = new HashSet<GraphNode>();
         checkRep();
