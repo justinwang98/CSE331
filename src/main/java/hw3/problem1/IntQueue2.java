@@ -42,12 +42,10 @@ public class IntQueue2 {
   int size;
 
   /** @spec.effects constructs an empty queue */
-  @SuppressWarnings("InvocationHandler")
   public IntQueue2() {
     entries = new int[INITIAL_SIZE];
     front = 0;
     size = 0;
-    checkRep();
   }
 
   /**

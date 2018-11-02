@@ -23,10 +23,8 @@ public class Graph {
     /**
      * Graph Constructor
      */
-    @SuppressWarnings("InvocationHandler")
     public Graph() {
         nodes = new HashSet<GraphNode>();
-        checkRep();
     }
 
     /**
