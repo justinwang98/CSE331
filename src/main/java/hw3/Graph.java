@@ -1,6 +1,7 @@
 package hw3;
 
 
+import org.checkerframework.checker.initialization.qual.Initialized;
 import org.eclipse.jgit.annotations.Nullable;
 
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
  * nodes != null
  *
  */
-public class Graph {
+public @Initialized class Graph {
     /** The set of nodes that represent the graph*/
     private Set<GraphNode> nodes;
 

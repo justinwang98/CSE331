@@ -1,6 +1,7 @@
 package hw3;
 
 
+import org.checkerframework.checker.initialization.qual.Initialized;
 import org.eclipse.jgit.annotations.Nullable;
 
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
  * Rep Invariant:
  * content != null, edges != null
  */
-public class GraphNode {
+public @Initialized class GraphNode {
     /**
      * the value stored by the node
      */

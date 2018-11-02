@@ -1,5 +1,7 @@
 package hw3.problem1;
 
+import org.checkerframework.checker.initialization.qual.Initialized;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * <p>An IntQueue can also be described constructively, with the append operation, ':', such that
  * [n1, n2, ..., n_k] : n_k+1 is the result of enqueing n_k+1 at the end of the queue.
  */
-public class IntQueue1 {
+public @Initialized class IntQueue1 {
   // This class represents a queue as a linked list where the front of
   // the list corresponds to the front of the queue.
 
