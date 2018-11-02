@@ -43,7 +43,7 @@ public @Initialized class IntQueue2 {
 
   /** @spec.effects constructs an empty queue */
   public IntQueue2() {
-    entries = new int[INITIAL_SIZE];
+    entries = new @Initialized int[INITIAL_SIZE];
     front = 0;
     size = 0;
     checkRep();

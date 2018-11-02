@@ -16,7 +16,7 @@ import java.util.Set;
  * Rep Invariant:
  * content != null, edges != null
  */
-public @Initialized class GraphNode {
+public class GraphNode {
     /**
      * the value stored by the node
      */
@@ -33,7 +33,7 @@ public @Initialized class GraphNode {
      */
     public GraphNode(String content) {
         this.content = content;
-        edges = new HashSet<GraphEdge>();
+        edges = new @Initialized HashSet<GraphEdge>();
         checkRep();
     }
 
@@ -46,7 +46,7 @@ public @Initialized class GraphNode {
      */
     public GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
-        edges = new HashSet<GraphEdge>();
+        edges = new @Initialized HashSet<GraphEdge>();
         this.edges.add(new GraphEdge(dest, edgeLabel));
         checkRep();
     }

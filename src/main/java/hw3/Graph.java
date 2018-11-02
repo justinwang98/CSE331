@@ -24,7 +24,7 @@ public @Initialized class Graph {
      * Graph Constructor
      */
     public Graph() {
-        nodes = new HashSet<GraphNode>();
+        nodes = new @Initialized HashSet<GraphNode>();
         checkRep();
     }
 
