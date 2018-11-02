@@ -1,5 +1,7 @@
 package hw2;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * <b>RatNum</b> represents an <b>immutable</b> rational number. It includes all of the elements in
  * the set of rationals, as well as the special "NaN" (not-a-number) element that results from
@@ -306,7 +308,7 @@ public final class RatNum extends Number implements Comparable<RatNum> {
    *     same rational number. Note that NaN = NaN for RatNums.
    */
   @Override
-  public boolean equals(/*@Nullable*/ Object obj) {
+  public boolean equals(@Nullable Object obj) {
     if (obj instanceof RatNum) {
       RatNum rn = (RatNum) obj;
 

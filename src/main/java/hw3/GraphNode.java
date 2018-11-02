@@ -1,6 +1,8 @@
 package hw3;
 
 
+import org.eclipse.jgit.annotations.Nullable;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class GraphNode {
     /**
      * Basic Constructor for the node
      * @param content is the value to be put into the node
+     * @spec.requires content != null
      */
     public GraphNode(String content) {
         this.content = content;
@@ -38,6 +41,7 @@ public class GraphNode {
      * @param content is the value to be put into the node
      * @param dest is the destination node of the edge from this node
      * @param edgeLabel is the label to be placed on the edge from this node to the dest node
+     * @spec.requires content, dest, edgeLabel != null
      */
     public GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
@@ -140,7 +144,7 @@ public class GraphNode {
      * @param other: object to be compared
      * @return whether other equals this
      */
-    @Override public boolean equals(Object other) {
+    @Override public boolean equals(@Nullable Object other) {
         checkRep();
         if (!(other instanceof GraphNode)) {
             checkRep();

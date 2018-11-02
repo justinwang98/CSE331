@@ -1,5 +1,7 @@
 package hw2;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -549,7 +551,7 @@ public final class RatPoly {
    *     the same rational polynomial. Note that all NaN RatPolys are equal.
    */
   @Override
-  public boolean equals(/*@Nullable*/ Object obj) {
+  public boolean equals(@Nullable Object obj) {
     if (obj instanceof RatPoly) {
       RatPoly rp = (RatPoly) obj;
 

@@ -1,5 +1,7 @@
 package hw3;
 
+import org.eclipse.jgit.annotations.Nullable;
+
 /**
  * Represents an edge in a graph.
  * @spec.specfield destination : GraphNode //
@@ -49,7 +51,7 @@ public class GraphEdge {
      * @param other: object to be compared
      * @return whether this equals others
      */
-    @Override public boolean equals(Object other) {
+    @Override public boolean equals(@Nullable Object other) {
         checkRep();
         if (!(other instanceof GraphNode)) {
             checkRep();

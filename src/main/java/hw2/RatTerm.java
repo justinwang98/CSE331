@@ -1,5 +1,7 @@
 package hw2;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * <b>RatTerm</b> is an immutable representation of a term in a single-variable polynomial
  * expression. The term has the form C*x^E where C is a rational number and E is an integer.
@@ -163,7 +165,7 @@ public final class RatTerm {
    * @throws IllegalArgumentException if (this.expt != arg.expt) and neither argument is zero or
    *     NaN.
    */
-  public RatTerm sub(RatTerm arg) { //TODO: check if the adds exception works here too
+  public RatTerm sub(RatTerm arg) {
     // c1 * x^(e) - c2 * x^(e) = (c1 - c2) * x^(e)
     return this.add(arg.negate());
   }
@@ -360,7 +362,7 @@ public final class RatTerm {
    *     RatTerm. Note that all NaN RatTerms are equal.
    */
   @Override
-  public boolean equals(/*@Nullable*/ Object obj) {
+  public boolean equals(@Nullable Object obj) {
     if (obj instanceof RatTerm) {
       RatTerm rt = (RatTerm) obj;
       if (this.isNaN() && rt.isNaN()) {

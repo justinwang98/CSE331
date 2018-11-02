@@ -1,6 +1,8 @@
 package hw3;
 
 
+import org.eclipse.jgit.annotations.Nullable;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -106,7 +108,7 @@ public class Graph {
      * @param other: object to be compared
      * @return whether this and object are equal
      */
-    @Override public boolean equals(Object other) {
+    @Override public boolean equals(@Nullable Object other) {
         checkRep();
         if (!(other instanceof Graph)) {
             checkRep();
