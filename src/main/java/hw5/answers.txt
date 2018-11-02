@@ -13,11 +13,13 @@ I added the nullable tag on every instance of setting and getting the next linke
 3. 
 
 a. Did the Nullness Checker indicate any problems with your specifications or code? If so what were they?
+It indicated that my checkreps inside constructors were not allowed.
 
 
 
-
-b. How did you change your specification or code to account for problems discovered by the Nullness Checker? For each change, also state why the change needed to be made.
-
-
+b. How did you change your specification or code to account for problems discovered by the Nullness Checker?
+For each change, also state why the change needed to be made.
+I removed the checkreps inside the constructors, since the checker is already guaranteeing that there will be
+no null values in my class. This means that the checkrep would be extraneous and it will cause an error since
+checkrep requires an initialized class and during a call to the constructor, the class is under-initialized.
 
