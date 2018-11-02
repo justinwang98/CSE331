@@ -26,10 +26,10 @@ public class IntQueue1 {
   // instead with your answers to the other written exercises.
 
   /** Elements in the queue. */
-  @NonNull List<Integer> entries;
+  List<Integer> entries;
 
   /** @spec.effects constructs an empty queue */
-  @SuppressWarnings("JdkObsolete")
+  @SuppressWarnings({"JdkObsolete", "UnderInitialization"})
   public IntQueue1() {
     entries = new LinkedList<Integer>();
     checkRep();
