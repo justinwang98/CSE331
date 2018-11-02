@@ -16,15 +16,15 @@ import java.util.Set;
  * nodes != null
  *
  */
-public @Initialized class Graph {
+public class Graph {
     /** The set of nodes that represent the graph*/
     private Set<GraphNode> nodes;
 
     /**
      * Graph Constructor
      */
-    public Graph() {
-        nodes = new @Initialized HashSet<GraphNode>();
+    public @Initialized Graph() {
+        nodes = new HashSet<GraphNode>();
         checkRep();
     }
 

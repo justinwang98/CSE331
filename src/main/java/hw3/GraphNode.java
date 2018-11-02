@@ -31,9 +31,9 @@ public class GraphNode {
      * @param content is the value to be put into the node
      * @spec.requires content != null
      */
-    public GraphNode(String content) {
+    public @Initialized GraphNode(String content) {
         this.content = content;
-        edges = new @Initialized HashSet<GraphEdge>();
+        edges = new HashSet<GraphEdge>();
         checkRep();
     }
 
@@ -44,9 +44,9 @@ public class GraphNode {
      * @param edgeLabel is the label to be placed on the edge from this node to the dest node
      * @spec.requires content, dest, edgeLabel != null
      */
-    public GraphNode(String content, GraphNode dest, String edgeLabel) {
+    public @Initialized GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
-        edges = new @Initialized HashSet<GraphEdge>();
+        edges = new HashSet<GraphEdge>();
         this.edges.add(new GraphEdge(dest, edgeLabel));
         checkRep();
     }

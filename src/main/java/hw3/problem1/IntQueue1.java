@@ -15,7 +15,7 @@ import java.util.List;
  * <p>An IntQueue can also be described constructively, with the append operation, ':', such that
  * [n1, n2, ..., n_k] : n_k+1 is the result of enqueing n_k+1 at the end of the queue.
  */
-public @Initialized class IntQueue1 {
+public class IntQueue1 {
   // This class represents a queue as a linked list where the front of
   // the list corresponds to the front of the queue.
 
@@ -28,8 +28,8 @@ public @Initialized class IntQueue1 {
 
   /** @spec.effects constructs an empty queue */
   @SuppressWarnings("JdkObsolete")
-  public IntQueue1() {
-    entries = new @Initialized LinkedList<Integer>();
+  public @Initialized IntQueue1() {
+    entries = new LinkedList<Integer>();
     checkRep();
   }
 
