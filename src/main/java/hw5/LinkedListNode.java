@@ -34,7 +34,7 @@ public class LinkedListNode {
   /**
    * @param label the label of this node
    * @param node the node following this
-   * @spec.requires label != null && node != null
+   * @spec.requires label != null and node != null
    * @spec.modifies this
    * @spec.effects constructs the node with the given label and given
    *               next node
