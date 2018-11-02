@@ -1,14 +1,15 @@
 CSE 331 Homework 5.  Answers to written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Justin Wang
 
 1. What changes did you make to NullnessExample.java?
-
+I changed the null assignment to a new Object.
 
 2. What changes did you make to the files we gave you in the hw5 package?
-
-
+I changed the nullable tag on the strings and got rid of them.
+I added the nullable tag on every instance of setting and getting the next linkednode
+ since there is a chance it could be null.
 3. 
 
 a. Did the Nullness Checker indicate any problems with your specifications or code? If so what were they?
