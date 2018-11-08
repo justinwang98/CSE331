@@ -2,6 +2,8 @@ package hw3;
 
 import org.eclipse.jgit.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * Represents an edge in a graph.
  * @spec.specfield destination : GraphNode //
@@ -10,7 +12,7 @@ import org.eclipse.jgit.annotations.Nullable;
  * Rep invariant:
  *  edge cannot be null, string cannot be null
  */
-public class GraphEdge {
+public class GraphEdge implements Comparable<GraphEdge>{
     /** The node where the edge points to.*/
     private GraphNode destination;
     /**
@@ -53,7 +55,7 @@ public class GraphEdge {
      */
     @Override public boolean equals(@Nullable Object other) {
         checkRep();
-        if (!(other instanceof GraphNode)) {
+        if (!(other instanceof GraphEdge)) {
             checkRep();
             return false;
         } else {
@@ -74,7 +76,19 @@ public class GraphEdge {
      * @return int: hashcode of the function
      */
     @Override public int hashCode() {
-        return 31 * label.hashCode();
+        return 31 * Objects.hash(label, destination.getContent());
+    }
+
+
+    @Override
+    public int compareTo(GraphEdge o) {
+        int temp = this.destination.compareTo(o.getDestination());
+
+        if (temp != 0) {
+            return temp;
+        } else {
+            return this.label.compareTo(o.getLabel());
+        }
     }
 
     /**

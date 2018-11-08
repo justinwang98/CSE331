@@ -1,23 +1,19 @@
 package hw3;
 
 
-import org.checkerframework.checker.initialization.qual.Initialized;
 import org.eclipse.jgit.annotations.Nullable;
 
-import java.lang.reflect.InvocationHandler;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a Node in a Graph
  * @spec.specfield content: String // the content held by a node
- * @spec.specfield edges : Set of GraphEdge // the out-edges a node has
+ * @spec.specfield edges : TreeSet of GraphEdge // the out-edges a node has
  *
  * Rep Invariant:
  * content != null, edges != null
  */
-public class GraphNode {
+public class GraphNode implements Comparable<GraphNode> {
     /**
      * the value stored by the node
      */
@@ -34,7 +30,7 @@ public class GraphNode {
      */
     public GraphNode(String content) {
         this.content = content;
-        edges = new HashSet<GraphEdge>();
+        edges = new TreeSet<GraphEdge>();
     }
 
     /**
@@ -46,7 +42,7 @@ public class GraphNode {
      */
     public GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
-        edges = new HashSet<GraphEdge>();
+        edges = new TreeSet<GraphEdge>();
         this.edges.add(new GraphEdge(dest, edgeLabel));
     }
 
@@ -69,25 +65,20 @@ public class GraphNode {
         return edges.contains(edge);
     }
 
-    /**
-     * Returns a copy of the set of edges
-     * @return a set which is a copy of the set of edges
-     */
-    public Set<GraphEdge> getEdges() {
+  /**
+   * Returns a copy of the HashSet of edges
+   *
+   * @return a TreeSet which is a copy of the TreeSet of edges
+   */
+  public Set<GraphEdge> getEdges() {
         checkRep();
-        Iterator<GraphEdge> iter = edges.iterator();
-        Set<GraphEdge> copy = new HashSet<GraphEdge>();
-        while (iter.hasNext()) { //copy every node in nodes to copy
-            copy.add(iter.next());
-        }
-        checkRep();
-        return copy;
-    }
+        return new TreeSet<>(edges);
+  }
 
     /**
-     * Clears the set of edges
+     * Clears the TreeSet of edges
      * @spec.modifies edges
-     * @spec.effects removes all the edges in the edges set
+     * @spec.effects removes all the edges in the edges TreeSet
      */
     public void clear() {
         checkRep();
@@ -96,7 +87,7 @@ public class GraphNode {
     }
 
     /**
-     * Adds an edge to the node
+     * Adds an edge if it is not already there to the node
      * @param edge: the edge to be added
      * @spec.requires edge != null
      * @spec.modifies edges
@@ -113,7 +104,7 @@ public class GraphNode {
      * @param edge: edge to be removed
      * @spec.requires edge != null
      * @spec.modifies edges
-     * @spec.effects removes an edge from the set of edges
+     * @spec.effects removes an edge from the TreeSet of edges
      */
     public void remove(GraphEdge edge) {
         checkRep();
@@ -122,8 +113,22 @@ public class GraphNode {
     }
 
     /**
-     * Returns an iterator over the set of edges
-     * @return an iterator over the edges in the set edges
+     * Gets an edge given the label, or null if not in the node
+     * @param content the label of the edge
+     * @return the GraphEdge associated with the label string or null if not there
+     */
+    public GraphEdge get(String content) {
+        for (GraphEdge e: edges) {
+            if (e.getLabel().equals(content)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns an iterator over the TreeSet of edges
+     * @return an iterator over the edges in the TreeSet edges
      */
     public Iterator<GraphEdge> iterator() {
         checkRep();
@@ -131,8 +136,8 @@ public class GraphNode {
     }
 
     /**
-     * Returns the size of the edges set
-     * @return the size as an int of the set of edges, edges
+     * Returns the size of the edges TreeSet
+     * @return the size as an int of the TreeSet of edges, edges
      */
     public int size() {
         checkRep();
@@ -169,7 +174,12 @@ public class GraphNode {
      * @return int: hashcode of the function
      */
     @Override public int hashCode() {
-        return 53 * edges.hashCode() + 37 * content.hashCode();
+        return 53 * Objects.hash(edges, content);
+    }
+
+    @Override
+    public int compareTo(GraphNode o) {
+        return this.content.compareTo(o.getContent());
     }
 
     /**
