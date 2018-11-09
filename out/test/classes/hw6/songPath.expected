@@ -1,0 +1,7 @@
+# Test the path on a graph that contains several nodes
+
+loaded graph songs
+songs contains: AoiEir BTS JJLin JayChou JokerXue Lisa Twice WangLeeHom
+path from JJLin to AoiEir:
+JJLin to Lisa via Chinese
+Lisa to AoiEir via Japanese

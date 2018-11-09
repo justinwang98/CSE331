@@ -1,0 +1,4 @@
+# Test the parser on a graph that contains several nodes
+
+loaded graph sing
+the children of JayChou in sing are: BTS(Chinese) JJLin(Chinese) JJLin(Taiwanese) JokerXue(Chinese) Lisa(Chinese) Twice(Taiwanese) WangLeeHom(Chinese) WangLeeHom(Taiwanese)

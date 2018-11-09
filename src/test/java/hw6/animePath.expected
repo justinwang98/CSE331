@@ -1,6 +1,0 @@
-# Test the path on a graph that contains several nodes
-
-loaded graph anime
-path from Asuna to Zoro:
-Asuna to Kirito via SAO
-Kirito to Zoro via OnePiece

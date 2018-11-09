@@ -1,0 +1,5 @@
+# Test the path on a graph that contains several nodes
+
+LoadGraph songs songs.tsv
+ListNodes songs
+FindPath songs JJLin AoiEir
