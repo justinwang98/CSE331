@@ -204,8 +204,8 @@ public class HW3TestDriver {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
     for (String node : g.getNodes().keySet()) {
-      if (g.getNodes().get(node).equals(parentName)) {
-        for (GraphEdge edge : g.getNodes().get(node).getEdges()) {
+      if (node.equals(parentName)) {
+        for (GraphEdge edge : g.get(node).getEdges()) {
           output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ")");
         }
       }
