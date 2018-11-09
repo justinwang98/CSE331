@@ -3,6 +3,8 @@ package hw3;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 
 import java.util.Iterator;
 

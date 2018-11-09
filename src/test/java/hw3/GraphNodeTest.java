@@ -1,19 +1,21 @@
 package hw3;
 
-import org.junit.Test;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
 
 public class GraphNodeTest {
     @Rule public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
 
     @Test
     public void oneConstructorTest() {
-        GraphNode foo = new GraphNode("test");
+        Graph.GraphNode foo = new GraphNode("test");
     }
 
     @Test

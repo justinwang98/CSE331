@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 
 
 public class GraphEdgeTest {
