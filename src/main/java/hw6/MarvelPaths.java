@@ -1,17 +1,23 @@
 package hw6;
 
 import hw3.Graph;
-import hw3.GraphEdge;
-import hw3.GraphNode;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * This is not an abstract data type
  */
 public class MarvelPaths {
+
+    public static void main(String[] args) throws MarvelParser.MalformedDataException {
+        Scanner reader = new Scanner(System.in);
+        String char1 = reader.nextLine();
+        String char2 = reader.nextLine();
+        MarvelPaths(char1, char2, loadGraph("marvel.tsv"));
+    }
 
     /**
      * Creates a graph based upon the tsv file passed in, mapping characters to each over in every book they have been in

@@ -1,8 +1,8 @@
 package hw6;
 
 import hw3.Graph;
-import hw3.GraphEdge;
-import hw3.GraphNode;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 
 import java.io.*;
 import java.util.*;
