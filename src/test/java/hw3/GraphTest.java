@@ -107,17 +107,4 @@ public class GraphTest {
         assertEquals(g.size(), 2);
     }
 
-    @Test
-    public void iteratorTest() {
-        Graph g = new Graph();
-        GraphNode foo = new GraphNode("test9");
-        GraphNode foo2 = new GraphNode("test10");
-        g.add(foo);
-        g.add(foo2);
-
-        Iterator<GraphNode> iter = g.iterator();
-        while (iter.hasNext()) {
-            iter.next();
-        }
-    }
 }

@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Represents a Node in a Graph
  * @spec.specfield content: String // the content held by a node
- * @spec.specfield edges : TreeSet of GraphEdge // the out-edges a node has
+ * @spec.specfield edges : HashSet of GraphEdge // the out-edges a node has
  *
  * Rep Invariant:
  * content != null, edges != null
@@ -30,7 +30,7 @@ public class GraphNode implements Comparable<GraphNode> {
      */
     public GraphNode(String content) {
         this.content = content;
-        edges = new TreeSet<GraphEdge>();
+        edges = new HashSet<GraphEdge>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class GraphNode implements Comparable<GraphNode> {
      */
     public GraphNode(String content, GraphNode dest, String edgeLabel) {
         this.content = content;
-        edges = new TreeSet<GraphEdge>();
+        edges = new HashSet<GraphEdge>();
         this.edges.add(new GraphEdge(dest, edgeLabel));
     }
 
@@ -68,17 +68,17 @@ public class GraphNode implements Comparable<GraphNode> {
   /**
    * Returns a copy of the HashSet of edges
    *
-   * @return a TreeSet which is a copy of the TreeSet of edges
+   * @return a HashSet which is a copy of the HashSet of edges
    */
   public Set<GraphEdge> getEdges() {
         checkRep();
-        return new TreeSet<>(edges);
+        return new HashSet<>(edges);
   }
 
     /**
-     * Clears the TreeSet of edges
+     * Clears the HashSet of edges
      * @spec.modifies edges
-     * @spec.effects removes all the edges in the edges TreeSet
+     * @spec.effects removes all the edges in the edges HashSet
      */
     public void clear() {
         checkRep();
@@ -104,7 +104,7 @@ public class GraphNode implements Comparable<GraphNode> {
      * @param edge: edge to be removed
      * @spec.requires edge != null
      * @spec.modifies edges
-     * @spec.effects removes an edge from the TreeSet of edges
+     * @spec.effects removes an edge from the HashSet of edges
      */
     public void remove(GraphEdge edge) {
         checkRep();
@@ -117,7 +117,7 @@ public class GraphNode implements Comparable<GraphNode> {
      * @param content the label of the edge
      * @return the GraphEdge associated with the label string or null if not there
      */
-    public GraphEdge get(String content) {
+    public @Nullable GraphEdge get(String content) {
         for (GraphEdge e: edges) {
             if (e.getLabel().equals(content)) {
                 return e;
@@ -127,8 +127,8 @@ public class GraphNode implements Comparable<GraphNode> {
     }
 
     /**
-     * Returns an iterator over the TreeSet of edges
-     * @return an iterator over the edges in the TreeSet edges
+     * Returns an iterator over the HashSet of edges
+     * @return an iterator over the edges in the HashSet edges
      */
     public Iterator<GraphEdge> iterator() {
         checkRep();
@@ -136,8 +136,8 @@ public class GraphNode implements Comparable<GraphNode> {
     }
 
     /**
-     * Returns the size of the edges TreeSet
-     * @return the size as an int of the TreeSet of edges, edges
+     * Returns the size of the edges HashSet
+     * @return the size as an int of the HashSet of edges, edges
      */
     public int size() {
         checkRep();
@@ -160,13 +160,8 @@ public class GraphNode implements Comparable<GraphNode> {
             if (!otherNode.getContent().equals(this.content)) {
                 return false;
             }
-            for (GraphEdge e : this.edges) {
-                if (!otherNode.getEdges().contains(e)) {
-                    return false;
-                }
-            }
+            return edges.equals(otherNode.getEdges());
         }
-        return true;
     }
 
     /**

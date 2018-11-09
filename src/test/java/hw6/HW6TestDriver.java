@@ -110,6 +110,8 @@ public class HW6TestDriver {
         listChildren(arguments);
       } else if (command.equals("LoadGraph")) {
         loadGraph(arguments);
+      } else if (command.equals("FindPath")) {
+        findPath(arguments);
       } else {
         output.println("Unrecognized command: " + command);
       }
@@ -133,43 +135,14 @@ public class HW6TestDriver {
     output.println("created graph " + graphName);
   }
 
-  private void loadGraph(List<String> arguments) {
+  private void loadGraph(List<String> arguments) throws MarvelParser.MalformedDataException {
     if (arguments.size() != 2) {
       throw new hw6.HW6TestDriver.CommandException("Bad arguments to LoadGraph: " + arguments);
     }
 
     String graphName = arguments.get(0);
-    String file = ".\\src\\main\\java\\hw6\\data\\" + arguments.get(1);
-    MarvelParser parser = new MarvelParser();
-    Set<String> chars = new HashSet<String>();
-    Map<String, List<String>> book = new HashMap<String, List<String>>();
-    try {
-      parser.parseData(file, chars, book);
-    } catch (MarvelParser.MalformedDataException m) {
-      throw new hw6.HW6TestDriver.CommandException("MalformedData argument to LoadGraph: " + arguments.get(1));
-    }
-    loadGraph(graphName, chars, book);
-  }
-
-  private void loadGraph(String graphName, Set<String> chars, Map<String, List<String>> book ) {
-    Graph g = new Graph();
+    Graph g = MarvelPaths.loadGraph(arguments.get(1));
     graphs.put(graphName, g);
-    Iterator<String> iter = chars.iterator();
-    while (iter.hasNext()) { // adds all the chars as nodes in the graph
-      g.add(new GraphNode(iter.next()));
-    }
-    Iterator<String> iter2 = book.keySet().iterator();
-    while (iter2.hasNext()) { // loop over every book
-      String bookName = iter2.next();
-      List<String> charsInBook = book.get(bookName);
-      for (String character : charsInBook) { // loop over every character in book
-        for (String otherChar : charsInBook) { // loop over every other char in book
-          if (!character.equals(otherChar)) {
-            g.get(character).add(new GraphEdge(g.get(otherChar), bookName)); // add edge between src and dest node
-          }
-        }
-      }
-    }
     output.println("loaded graph " + graphName);
   }
 
@@ -227,8 +200,9 @@ public class HW6TestDriver {
   private void listNodes(String graphName) {
     output.print(graphName + " contains: ");
     Graph g = graphs.get(graphName);
-    for (GraphNode node : g.getNodes()) {
-      output.print(node.getContent() + " ");
+    Set<String> sorted = new TreeSet<String>(g.getNodes().keySet()); // sorts the hashset alphabetically
+    for (String node : sorted) {
+      output.print(node + " ");
     }
     output.println();
   }
@@ -246,10 +220,39 @@ public class HW6TestDriver {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
     GraphNode node = g.get(parentName);
-    for (GraphEdge edge : node.getEdges()) {
+    Set<GraphEdge> sorted = new TreeSet<GraphEdge>(node.getEdges()); // sorts the hashset alphabetically
+    for (GraphEdge edge : sorted) {
       output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ") ");
     }
     output.println();
+  }
+
+  private void findPath(List<String> arguments) {
+    Graph g = graphs.get(arguments.get(0));
+    // sets the first and nth character and replaces underscores with spaces
+    String char1 = arguments.get(1).replace("_", " ");
+    String charn = arguments.get(2).replace("_", " ");
+    if (g.get(char1) == null) {
+      output.println("unknown character " + char1);
+    }
+    if (g.get(charn) == null) {
+      output.println("unknown character " + charn);
+    }
+    if (g.get(char1) != null && g.get(charn) != null) {
+      output.println("path from " + char1 + " to " + charn);
+      List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
+      if (list == null) {
+        output.println("no path found");
+      } else {
+        // fencepost because edges doesn't contain source
+        output.println(char1 + " to " + list.get(0).getDestination().getContent() + " via " + list.get(0).getLabel());
+        for (int i = 1; i < list.size(); i++) {
+          output.println(list.get(i - 1).getDestination().getContent() + " to " + list.get(i).getDestination().getContent()
+                  + " via " + list.get(0).getLabel());
+        }
+      }
+
+    }
   }
 
   /** This exception results when the input file cannot be parsed properly. */

@@ -7,11 +7,12 @@ Briefly describe any changes made to your Graph ADT from HW 3-4 and why
 those changes were made below.  (See the HW6 assignment for details.)
 
 Fixed GraphEdge equals to properly test edges and not nodes.
-Changed Node and Edge implementation to utilize treeset instead of hashset.
+Fixed Graph and Node equals to use Set.equals
 Changed Node and graph get nodes/edges methods to construct a new set and passing in the current set.
 Changed Node and Edge add method to check not add if edge/node is already present to keep uniqueness.
 Changed Graph equals so it compares nodes and edges.
 Changed Graph checkrep to check if there are null nodes
 Changed Graph, GraphNode, GraphEdges hashcode to utilize Objects.hash
 Added a get method to Graph and GraphNode to more easily access objects
-Added compareto for treeset for graph and nodes so they can implement comparable
+Added compareto for graph and nodes so they can implement comparable so that when i cast to treeset later it works
+Created get method to emulate hashmap get functionality.

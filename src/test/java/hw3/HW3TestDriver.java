@@ -156,15 +156,15 @@ public class HW3TestDriver {
   private void addEdge(String graphName, String parentName, String childName, String edgeLabel) {
     Graph g = graphs.get(graphName);
     GraphNode dest = null;
-    for (GraphNode node : g.getNodes()) {
-      if (node.getContent().equals(childName)) {
-        dest = node;
+    for (String node : g.getNodes().keySet()) {
+      if (node.equals(childName)) {
+        dest = g.getNodes().get(node);
       }
     }
     if (dest != null) {
-      for (GraphNode node : g.getNodes()) {
-        if (node.getContent().equals(parentName)) {
-          node.add(new GraphEdge(dest, edgeLabel));
+      for (String node : g.getNodes().keySet()) {
+        if (node.equals(parentName)) {
+          g.getNodes().get(node).add(new GraphEdge(dest, edgeLabel));
         }
       }
     }
@@ -183,9 +183,9 @@ public class HW3TestDriver {
   private void listNodes(String graphName) {
     output.print(graphName + " contains: ");
     Graph g = graphs.get(graphName);
-    Set<GraphNode> list = g.getNodes();
-    for (GraphNode node : list) {
-      output.print(node.getContent() + " ");
+    Set<String> list = g.getNodes().keySet();
+    for (String node : list) {
+      output.print(node + " ");
     }
     output.println();
   }
@@ -203,9 +203,9 @@ public class HW3TestDriver {
   private void listChildren(String graphName, String parentName) {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
-    for (GraphNode node : g.getNodes()) {
-      if (node.getContent().equals(parentName)) {
-        for (GraphEdge edge : node.getEdges()) {
+    for (String node : g.getNodes().keySet()) {
+      if (g.getNodes().get(node).equals(parentName)) {
+        for (GraphEdge edge : g.getNodes().get(node).getEdges()) {
           output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ")");
         }
       }

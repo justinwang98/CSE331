@@ -3,48 +3,60 @@ package hw3;
 
 import org.eclipse.jgit.annotations.Nullable;
 
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Represents a multigraph without duplicate edges
- * @spec.specfield nodes : HashTreeSet of GraphNode // The TreeSet of nodes that represent the graph
+ * @spec.specfield nodes : HashMap of GraphNode // The HashMap of nodes that represent the graph
  *
  * Rep Invariant:
  * nodes != null
  *
  */
 public class Graph {
-    /** The TreeSet of nodes that represent the graph*/
-    private Set<GraphNode> nodes;
+    /**
+     * boolean to disable checkrep during testing and implementation
+     */
+    private static final boolean TEST = true;
+
+    /** The HashSet of nodes that represent the graph*/
+    private Map<String, GraphNode> nodes;
 
     /**
      * Graph Constructor
      */
     public Graph() {
-        nodes = new TreeSet<GraphNode>();
+        nodes = new HashMap<String, GraphNode>();
     }
 
     /**
-     * Returns a copy of the TreeSet of the internal nodes
+     * Returns a copy of the HashSet of the internal nodes
      * @return a copy of nodes
      */
-    public Set<GraphNode> getNodes() {
+    public Map<String, GraphNode> getNodes() {
         checkRep();
-        return new TreeSet<>(nodes);
+        return new HashMap<String, GraphNode>(nodes);
     }
+
+    /**
+     * Returns the node associated with the key
+     * @param key string of node
+     * @return graphnode associated with string key
+     */
+    public GraphNode get(String key) {
+        return nodes.get(key);
+    }
+
     /**
      * Adds a node to the graph
      * @param node: node to be added
      * @spec.requires node != null
      * @spec.modifies nodes
-     * @spec.effects adds a node to the nodes TreeSet
+     * @spec.effects adds a node to the nodes HashSet
      */
     public void add(GraphNode node) {
         checkRep();
-        nodes.add(node);
+        nodes.put(node.getContent(), node);
         checkRep();
     }
 
@@ -53,11 +65,11 @@ public class Graph {
      * @param node: node to be removed
      * @spec.requires node != null
      * @spec.modifies nodes
-     * @spec.effects removes a node from the nodes TreeSet
+     * @spec.effects removes a node from the nodes HashSet
      */
     public void remove(GraphNode node) {
         checkRep();
-        nodes.remove(node);
+        nodes.remove(node.getContent());
         checkRep();
     }
 
@@ -67,35 +79,21 @@ public class Graph {
      * @return boolean if the graph contains a node
      */
     public boolean contains(GraphNode node) {
-        return nodes.contains(node);
+        return nodes.keySet().contains(node.getContent());
     }
 
     /**
-     * Gets a node given the content, or null if not in the graph
-     * @param content the content of the node
-     * @return the GraphNode associated with the content string or null if not there
-     */
-    public GraphNode get(String content) {
-        for (GraphNode n: nodes) {
-            if (n.getContent().equals(content)) {
-                return n;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Checks if the node TreeSet is empty
-     * @return boolean of the state of emptiness of the node TreeSet
+     * Checks if the node HashSet is empty
+     * @return boolean of the state of emptiness of the node HashSet
      */
     public boolean isEmpty() {
         return nodes.isEmpty();
     }
 
     /**
-     * Clears the node TreeSet of nodes
+     * Clears the node HashSet of nodes
      * @spec.modifies nodes
-     * @spec.effects removes all nodes in nodes(TreeSet)
+     * @spec.effects removes all nodes in nodes(HashSet)
      */
     public void clear() {
         checkRep();
@@ -104,20 +102,11 @@ public class Graph {
     }
 
     /**
-     * Returns the size of the nodes TreeSet
-     * @return an int representing the size of the node TreeSet
+     * Returns the size of the nodes HashSet
+     * @return an int representing the size of the node HashSet
      */
     public int size() {
         return nodes.size();
-    }
-
-    /**
-     * Returns an iterator over the node TreeSet
-     * @return iterator that goes over nodes
-     */
-    public Iterator<GraphNode> iterator() {
-        checkRep();
-        return nodes.iterator();
     }
 
     /**
@@ -133,19 +122,8 @@ public class Graph {
         } else {
             checkRep();
             Graph otherGraph = (Graph) other;
-            for (GraphNode g : this.nodes) {
-                if (!otherGraph.getNodes().contains(g)) {
-                    return false;
-                } else { // contains node
-                    for (GraphNode g2: otherGraph.getNodes()) { // check if equals
-                        if (!g.equals(g2)) {
-                            return false;
-                        }
-                    }
-                }
-            }
+            return nodes.equals(otherGraph.getNodes());
         }
-        return true;
     }
 
     /**
@@ -161,8 +139,11 @@ public class Graph {
      */
     private void checkRep() {
         assert(nodes != null);
-        for (GraphNode n : nodes) {
-            assert(n != null);
+        if (!TEST) {
+          for (String n : nodes.keySet()) {
+              assert(n != null);
+              assert (nodes.get(n) != null);
+          }
         }
     }
 }
