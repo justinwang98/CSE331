@@ -34,7 +34,10 @@ public class MarvelPaths {
             for (String character : charsInBook) { // loop over every character in book
                 for (String otherChar : charsInBook) { // loop over every other char in book
                     if (!character.equals(otherChar)) {
-                        graph.get(character).add(new GraphEdge(graph.get(otherChar), bookName)); // add edge between src and dest node
+                        GraphNode temp = graph.get(otherChar);
+                        if (temp != null) {
+                            graph.get(character).add(new GraphEdge(temp, bookName)); // add edge between src and dest node
+                        }
                     }
                 }
             }
@@ -55,8 +58,10 @@ public class MarvelPaths {
         GraphNode dest = graph.get(char2);
         List<GraphNode> queue = new ArrayList<GraphNode>(); // queue
         Map<GraphNode, ArrayList<GraphEdge>> map = new HashMap<GraphNode, ArrayList<GraphEdge>>();
-        queue.add(start);
-        map.put(start, new ArrayList<>()); // start mapped to empty list
+        if (start != null) {
+            queue.add(start);
+            map.put(start, new ArrayList<>()); // start mapped to empty list
+        }
 
         int count = 0;
         while (!queue.isEmpty()) {
@@ -70,7 +75,7 @@ public class MarvelPaths {
                 if (!map.containsKey(destination)) {
                     ArrayList<GraphEdge> temp = map.get(curr);
                     if (temp != null) {
-                        ArrayList<GraphEdge> path = new ArrayList<>(map.get(curr));
+                        ArrayList<GraphEdge> path = new ArrayList<>(temp);
                         path.add(e);
                         map.put(destination, path);
                         queue.add(destination);
