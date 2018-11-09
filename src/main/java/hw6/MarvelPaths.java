@@ -85,8 +85,6 @@ public class MarvelPaths {
                     }
                 }
             }
-            count++;
-            System.out.println(count);
         }
         return null;
     }
