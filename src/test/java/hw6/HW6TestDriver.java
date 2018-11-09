@@ -239,7 +239,7 @@ public class HW6TestDriver {
       output.println("unknown character " + charn);
     }
     if (g.get(char1) != null && g.get(charn) != null) {
-      output.println("path from " + char1 + " to " + charn);
+      output.println("path from " + char1 + " to " + charn + ":");
       List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
       if (list == null) {
         output.println("no path found");
@@ -248,7 +248,7 @@ public class HW6TestDriver {
         output.println(char1 + " to " + list.get(0).getDestination().getContent() + " via " + list.get(0).getLabel());
         for (int i = 1; i < list.size(); i++) {
           output.println(list.get(i - 1).getDestination().getContent() + " to " + list.get(i).getDestination().getContent()
-                  + " via " + list.get(0).getLabel());
+                  + " via " + list.get(i).getLabel());
         }
       }
 
