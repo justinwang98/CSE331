@@ -12,7 +12,14 @@ import java.util.*;
  */
 public class MarvelPaths {
 
-    public static void main(String[] args) throws MarvelParser.MalformedDataException {
+  /**
+   * Runs the command line
+   * @param args arguments passed in
+   * @throws MarvelParser.MalformedDataException if the file is not well-formed: each line contains
+   *     exactly two * tokens separated by a tab, or else starting with a # symbol to indicate a
+   *     comment line
+   */
+  public static void main(String[] args) throws MarvelParser.MalformedDataException {
         Scanner reader = new Scanner(System.in);
         String char1 = reader.nextLine();
         String char2 = reader.nextLine();
