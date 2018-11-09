@@ -4,14 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import hw6.utils.LabelledParameterized;
 import hw6.utils.LabelledParameterized.Labels;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.LinkedList;
