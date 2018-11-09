@@ -158,13 +158,13 @@ public class HW3TestDriver {
     GraphNode dest = null;
     for (String node : g.getNodes().keySet()) {
       if (node.equals(childName)) {
-        dest = g.getNodes().get(node);
+        dest = g.get(node);
       }
     }
     if (dest != null) {
       for (String node : g.getNodes().keySet()) {
         if (node.equals(parentName)) {
-          g.getNodes().get(node).add(new GraphEdge(dest, edgeLabel));
+          g.get(node).add(new GraphEdge(dest, edgeLabel));
         }
       }
     }
