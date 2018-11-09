@@ -65,8 +65,6 @@ public class MarvelPaths {
             queue.add(start);
             map.put(start, new ArrayList<>()); // start mapped to empty list
         }
-
-        int count = 0;
         while (!queue.isEmpty()) {
             GraphNode curr = queue.remove(0);
             if (curr.equals(dest)) {

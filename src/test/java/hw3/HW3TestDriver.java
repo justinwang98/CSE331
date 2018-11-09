@@ -183,8 +183,8 @@ public class HW3TestDriver {
   private void listNodes(String graphName) {
     output.print(graphName + " contains: ");
     Graph g = graphs.get(graphName);
-    Set<String> list = g.getNodes().keySet();
-    for (String node : list) {
+    Set<String> sorted = new TreeSet<String>(g.getNodes().keySet()); // sorts the hashset alphabetically
+    for (String node : sorted) {
       output.print(node + " ");
     }
     output.println();
@@ -203,7 +203,8 @@ public class HW3TestDriver {
   private void listChildren(String graphName, String parentName) {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
-    for (String node : g.getNodes().keySet()) {
+    Set<String> sorted = new TreeSet<String>(g.getNodes().keySet()); // sorts the hashset alphabetically
+    for (String node : sorted) {
       if (node.equals(parentName)) {
         for (GraphEdge edge : g.get(node).getEdges()) {
           output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ")");
