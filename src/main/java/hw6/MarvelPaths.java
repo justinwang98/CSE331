@@ -7,6 +7,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.*;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * This is not an abstract data type
  */
@@ -20,7 +22,7 @@ public class MarvelPaths {
    *     comment line
    */
   public static void main(String[] args) throws MarvelParser.MalformedDataException {
-        Scanner reader = new Scanner(System.in);
+      Scanner reader = new Scanner(System.in, UTF_8.name());
         String char1 = reader.nextLine();
         String char2 = reader.nextLine();
         MarvelPaths(char1, char2, loadGraph("marvel.tsv"));
