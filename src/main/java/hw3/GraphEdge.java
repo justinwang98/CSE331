@@ -7,16 +7,12 @@ import java.util.Objects;
 /**
  * Represents an edge in a graph.
  * @spec.specfield destination : GraphNode //
- * @spec.specfield source : GraphNode //
  * @spec.specfield label : String //
  *
  * Rep invariant:
  *  edge cannot be null, string cannot be null
  */
 public class GraphEdge implements Comparable<GraphEdge>{
-
-    /** The node where the edge comes from*/
-    private GraphNode source;
 
     /** The node where the edge points to.*/
     private GraphNode destination;
@@ -27,19 +23,6 @@ public class GraphEdge implements Comparable<GraphEdge>{
 
     /**
      * Constructor for GraphEdge
-     * @param src: source noce
-     * @param dest: destination node
-     * @param label: label for the edge
-     * @spec.requires src != null dest != null and label != null
-     */
-    public GraphEdge(GraphNode src, GraphNode dest, String label) {
-        this.destination = dest;
-        this.source = src;
-        this.label = label;
-    }
-
-    /**
-     * Constructor for GraphEdge
      * @param dest: destination node
      * @param label: label for the edge
      * @spec.requires dest != null and label != null
@@ -47,15 +30,6 @@ public class GraphEdge implements Comparable<GraphEdge>{
     public GraphEdge(GraphNode dest, String label) {
         this.destination = dest;
         this.label = label;
-    }
-
-    /**
-     * Getter for source
-     * @return the source node
-     */
-    public GraphNode getSource() {
-        checkRep();
-        return source;
     }
 
     /**
@@ -124,6 +98,5 @@ public class GraphEdge implements Comparable<GraphEdge>{
     private void checkRep() {
         assert (label != null);
         assert (destination != null);
-        assert (source != null);
     }
 }

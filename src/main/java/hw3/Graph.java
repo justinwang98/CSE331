@@ -43,7 +43,7 @@ public class Graph {
      * @param key string of node
      * @return graphnode associated with string key
      */
-    public GraphNode get(String key) {
+    public @Nullable GraphNode get(String key) {
         return nodes.get(key);
     }
 

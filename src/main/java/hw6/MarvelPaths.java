@@ -5,6 +5,7 @@ import hw3.GraphEdge;
 import hw3.GraphNode;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -33,7 +34,7 @@ public class MarvelPaths {
             for (String character : charsInBook) { // loop over every character in book
                 for (String otherChar : charsInBook) { // loop over every other char in book
                     if (!character.equals(otherChar)) {
-                        graph.get(character).add(new GraphEdge(graph.get(character), graph.get(otherChar), bookName)); // add edge between src and dest node
+                        graph.get(character).add(new GraphEdge(graph.get(otherChar), bookName)); // add edge between src and dest node
                     }
                 }
             }
@@ -67,10 +68,13 @@ public class MarvelPaths {
             for (GraphEdge e : sorted) {
                 GraphNode destination = e.getDestination();
                 if (!map.containsKey(destination)) {
-                    ArrayList<GraphEdge> path = new ArrayList<>(map.get(curr));
-                    path.add(e);
-                    map.put(destination, path);
-                    queue.add(destination);
+                    ArrayList<GraphEdge> temp = map.get(curr);
+                    if (temp != null) {
+                        ArrayList<GraphEdge> path = new ArrayList<>(map.get(curr));
+                        path.add(e);
+                        map.put(destination, path);
+                        queue.add(destination);
+                    }
                 }
             }
             count++;
