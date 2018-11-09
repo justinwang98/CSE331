@@ -36,7 +36,10 @@ public class MarvelPaths {
                     if (!character.equals(otherChar)) {
                         GraphNode temp = graph.get(otherChar);
                         if (temp != null) {
-                            graph.get(character).add(new GraphEdge(temp, bookName)); // add edge between src and dest node
+                            GraphNode temp2 = graph.get(character);
+                            if (temp2 != null) {
+                                temp2.add(new GraphEdge(temp, bookName)); // add edge between src and dest node
+                            }
                         }
                     }
                 }
