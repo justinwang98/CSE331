@@ -2,6 +2,8 @@ package hw3;
 
 import java.io.*;
 import java.util.*;
+import hw3.Graph.GraphEdge;
+import hw3.Graph.GraphNode;
 
 /** This class implements a testing driver which reads test scripts from files for testing Graph. */
 public class HW3TestDriver {
