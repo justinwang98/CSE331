@@ -19,13 +19,17 @@ public class MarvelPaths {
         MarvelPaths(char1, char2, loadGraph("marvel.tsv"));
     }
 
-    /**
-     * Creates a graph based upon the tsv file passed in, mapping characters to each over in every book they have been in
-     * @param fileName file to be processed
-     * @return a graph based upon the the file
-     * @throws MarvelParser.MalformedDataException
-     */
-    public static Graph loadGraph(String fileName) throws MarvelParser.MalformedDataException {
+  /**
+   * Creates a graph based upon the tsv file passed in, mapping characters to each over in every
+   * book they have been in
+   *
+   * @param fileName file to be processed
+   * @return a graph based upon the the file
+   * @throws MarvelParser.MalformedDataException if the file is not well-formed: each line contains
+   *     exactly two * tokens separated by a tab, or else starting with a # symbol to indicate a
+   *     comment line
+   */
+  public static Graph loadGraph(String fileName) throws MarvelParser.MalformedDataException {
         Graph graph = new Graph();
         String file = ".\\src\\main\\java\\hw6\\data\\" + fileName;
         Set<String> chars = new HashSet<String>();
