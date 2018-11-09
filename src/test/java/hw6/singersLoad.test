@@ -1,4 +1,0 @@
-# Test the parser on a graph that contains several nodes
-
-LoadGraph sing songs.tsv
-ListChildren sing JayChou
