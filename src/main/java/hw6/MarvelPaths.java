@@ -40,7 +40,7 @@ public class MarvelPaths {
    */
   public static Graph loadGraph(String fileName) throws MarvelParser.MalformedDataException {
         Graph graph = new Graph();
-        String file = "./src/main/java/hw6/data/ " + fileName;
+        String file = "./src/main/java/hw6/data/" + fileName;
         Set<String> chars = new HashSet<String>();
         Map<String, List<String>> book = new HashMap<String, List<String>>();
         MarvelParser.parseData(file, chars, book);

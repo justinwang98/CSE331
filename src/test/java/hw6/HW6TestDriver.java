@@ -240,18 +240,28 @@ public class HW6TestDriver {
     }
     if (g.get(char1) != null && g.get(charn) != null) {
       output.println("path from " + char1 + " to " + charn + ":");
-      List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
-      if (list == null) {
-        output.println("no path found");
-      } else {
-        // fencepost because edges doesn't contain source
-        output.println(char1 + " to " + list.get(0).getDestination().getContent() + " via " + list.get(0).getLabel());
-        for (int i = 1; i < list.size(); i++) {
-          output.println(list.get(i - 1).getDestination().getContent() + " to " + list.get(i).getDestination().getContent()
-                  + " via " + list.get(i).getLabel());
+      if (g.get(char1) != g.get(charn)) {
+        List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
+        if (list == null) {
+          output.println("no path found");
+        } else {
+          // fencepost because edges doesn't contain source
+          output.println(
+              char1
+                  + " to "
+                  + list.get(0).getDestination().getContent()
+                  + " via "
+                  + list.get(0).getLabel());
+          for (int i = 1; i < list.size(); i++) {
+            output.println(
+                list.get(i - 1).getDestination().getContent()
+                    + " to "
+                    + list.get(i).getDestination().getContent()
+                    + " via "
+                    + list.get(i).getLabel());
+          }
         }
       }
-
     }
   }
 
