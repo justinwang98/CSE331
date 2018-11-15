@@ -1,0 +1,4 @@
+# Test the path on a graph that contains several nodes
+
+LoadGraph anime anime.tsv
+FindPath anime Asuna Zoro

@@ -40,7 +40,7 @@ public class MarvelPaths {
    */
   public static Graph loadGraph(String fileName) throws MarvelParser.MalformedDataException {
         Graph graph = new Graph();
-        String file = ".\\src\\main\\java\\hw6\\data\\" + fileName;
+        String file = "./src/main/java/hw6/data/ " + fileName;
         Set<String> chars = new HashSet<String>();
         Map<String, List<String>> book = new HashMap<String, List<String>>();
         MarvelParser.parseData(file, chars, book);
@@ -51,7 +51,7 @@ public class MarvelPaths {
         for (String bookName : book.keySet()) { // loop over every book
             List<String> charsInBook = book.get(bookName);
             for (String character : charsInBook) { // loop over every character in book
-                for (String otherChar : charsInBook) { // loop over every other char in book
+                for  (String otherChar : charsInBook) { // loop over every other char in book
                     if (!character.equals(otherChar)) {
                         GraphNode temp = graph.get(otherChar);
                         if (temp != null) {
