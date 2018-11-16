@@ -1,0 +1,8 @@
+# Load the songs dataset and search for an existing path.
+
+loaded graph songs
+
+path from JJLin to AoiEir:
+JJLin to Lisa with weight 1.000
+Lisa to AoiEir with weight 1.000
+total cost: 2.000

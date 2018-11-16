@@ -1,0 +1,5 @@
+# Load the anime dataset and search for an existing path.
+
+LoadGraph anime anime.tsv
+
+FindPath anime Sasuke Kirito

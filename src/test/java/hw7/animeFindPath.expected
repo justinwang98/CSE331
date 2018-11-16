@@ -1,0 +1,8 @@
+# Load the anime dataset and search for an existing path.
+
+loaded graph anime
+
+path from Sasuke to Kirito:
+Sasuke to Naruto with weight 1.000
+Naruto to Kirito with weight 0.500
+total cost: 1.500
