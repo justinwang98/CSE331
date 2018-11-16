@@ -178,13 +178,11 @@ public class HW6TestDriver {
 
   private void addEdge(String graphName, String parentName, String childName, String edgeLabel) {
     Graph g = graphs.get(graphName);
-    double edgeLabel2 = Double.valueOf(edgeLabel);
     GraphNode dest = g.get(childName);
     if (dest != null) {
       GraphNode src = g.get(parentName);
       if (src != null) {
-        // want to update the edgelabel
-        src.add(new GraphEdge(dest, edgeLabel2));
+        src.add(new GraphEdge(dest, edgeLabel));
       }
     }
     output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName + " in " + graphName);
@@ -221,8 +219,8 @@ public class HW6TestDriver {
   private void listChildren(String graphName, String parentName) {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
-    GraphNode node = g.get(parentName);
-    Map<String, GraphEdge> sorted = new TreeMap<String, GraphEdge>(node.getEdges()); // sorts the hashset alphabetically
+    Graph.GraphNode node = g.get(parentName);
+    Map<String, Graph.GraphEdge> sorted = new TreeMap<String, Graph.GraphEdge>(node.getEdges()); // sorts the hashset alphabetically
     for (String edge : sorted.keySet()) {
       output.print(sorted.get(edge).getDestination().getContent() + "(" + sorted.get(edge).getLabel() + ") ");
     }
@@ -242,28 +240,18 @@ public class HW6TestDriver {
     }
     if (g.get(char1) != null && g.get(charn) != null) {
       output.println("path from " + char1 + " to " + charn + ":");
-      if (g.get(char1) != g.get(charn)) {
-        List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
-        if (list == null) {
-          output.println("no path found");
-        } else {
-          // fencepost because edges doesn't contain source
-          output.println(
-              char1
-                  + " to "
-                  + list.get(0).getDestination().getContent()
-                  + " via "
-                  + list.get(0).getLabel());
-          for (int i = 1; i < list.size(); i++) {
-            output.println(
-                list.get(i - 1).getDestination().getContent()
-                    + " to "
-                    + list.get(i).getDestination().getContent()
-                    + " via "
-                    + list.get(i).getLabel());
-          }
+      List<GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
+      if (list == null) {
+        output.println("no path found");
+      } else {
+        // fencepost because edges doesn't contain source
+        output.println(char1 + " to " + list.get(0).getDestination().getContent() + " via " + list.get(0).getLabel());
+        for (int i = 1; i < list.size(); i++) {
+          output.println(list.get(i - 1).getDestination().getContent() + " to " + list.get(i).getDestination().getContent()
+                  + " via " + list.get(i).getLabel());
         }
       }
+
     }
   }
 

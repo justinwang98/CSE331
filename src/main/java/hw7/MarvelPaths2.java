@@ -29,6 +29,8 @@ public class MarvelPaths2 {
             graph.add(new Graph.GraphNode(character)); //maybe have to add in edges to self
         }
         Iterator<String> iter2 = book.keySet().iterator();
+
+        // first for loop sets the edge weights and increments them
         for (String bookName : book.keySet()) { // loop over every book
             List<String> charsInBook = book.get(bookName);
             for (String character : charsInBook) { // loop over every character in book
@@ -42,11 +44,19 @@ public class MarvelPaths2 {
                                 if (edge == null) { // no edge yet
                                     temp2.add(new Graph.GraphEdge(temp, 1)); // add edge between src and dest node
                                 }
-                                temp2.add(new Graph.GraphEdge(temp, (double) edge.getLabel() + 1)); // add edge between src and dest node
+                                temp2.add(new Graph.GraphEdge(temp, (double) edge.getLabel() + 1)); // increment weight
                             }
                         }
                     }
                 }
+            }
+        }
+        for (String character : chars) { // second for loop inverts all edge weights
+            Graph.GraphNode tempChars = graph.get(character);
+            for (String edgeDest : (Set<String>) tempChars.getEdges().keySet()) {
+                Graph.GraphEdge tempEdge = tempChars.get(edgeDest);
+                tempChars.add(new Graph.GraphEdge(tempEdge.getDestination(), // inverts value
+                        1.0 / (double) tempEdge.getLabel()));
             }
         }
         return graph;

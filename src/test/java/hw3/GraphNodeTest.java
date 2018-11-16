@@ -104,15 +104,4 @@ public class GraphNodeTest {
         assertEquals(0, boo.getEdges().size());
     }
 
-    @Test
-    public void iteratorTest() {
-        GraphNode boo = new GraphNode("test");
-        GraphEdge bar = new GraphEdge(new GraphNode("test2"),"test3");
-        GraphEdge bar2 = new GraphEdge(new GraphNode("test4"),"test5");
-
-        Iterator<GraphEdge> iter = boo.iterator();
-        while (iter.hasNext()) {
-            iter.next();
-        }
-    }
 }
