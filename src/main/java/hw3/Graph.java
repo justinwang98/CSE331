@@ -1,6 +1,7 @@
 package hw3;
 
 
+import org.eclipse.jgit.annotations.NonNull;
 import org.eclipse.jgit.annotations.Nullable;
 
 import java.util.*;
@@ -98,7 +99,8 @@ public class Graph<E> {
             if (temp != 0) {
                 return temp;
             } else {
-                return ((String) this.label).compareTo((String) o.getLabel());
+                int temp2 = ((String) this.label).compareTo((String) o.getLabel());
+                return temp2;
             }
         }
 
@@ -268,7 +270,8 @@ public class Graph<E> {
 
         @Override
         public int compareTo(GraphNode o) {
-            return ((String) this.content).compareTo((String) o.getContent());
+            int temp = ((String) this.content).compareTo((String) o.getContent());
+            return temp;
         }
 
         /**
