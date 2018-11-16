@@ -92,7 +92,7 @@ public class Graph<E> {
 
 
         @Override
-        public int compareTo(GraphEdge o) {
+        public @Nullable int compareTo(GraphEdge o) {
             int temp = this.destination.compareTo(o.getDestination());
 
             if (temp != 0) {
@@ -267,7 +267,7 @@ public class Graph<E> {
         }
 
         @Override
-        public int compareTo(GraphNode o) {
+        public @Nullable int compareTo(GraphNode o) {
             return ((String) this.content).compareTo((String) o.getContent());
         }
 
