@@ -13,23 +13,23 @@ import java.util.*;
  * nodes != null
  *
  */
-public class Graph {
+public class Graph<E> {
     /**
      * Represents an edge in a graph.
      * @spec.specfield destination : GraphNode //
-     * @spec.specfield label : String //
+     * @spec.specfield label : E //
      *
      * Rep invariant:
-     *  edge cannot be null, string cannot be null
+     *  edge cannot be null, E cannot be null
      */
-    public static class GraphEdge implements Comparable<GraphEdge>{
+    public static class GraphEdge<E> implements Comparable<GraphEdge<E>>{
 
         /** The node where the edge points to.*/
         private GraphNode destination;
         /**
-         * The string label assigned to the edge.
+         * The E label assigned to the edge.
          */
-        private String label;
+        private E label;
 
         /**
          * Constructor for GraphEdge
@@ -37,7 +37,7 @@ public class Graph {
          * @param label: label for the edge
          * @spec.requires dest != null and label != null
          */
-        public GraphEdge(GraphNode dest, String label) {
+        public GraphEdge(GraphNode dest, E label) {
             this.destination = dest;
             this.label = label;
         }
@@ -55,7 +55,7 @@ public class Graph {
          * Getter for label
          * @return label for the edge
          */
-        public String getLabel(){
+        public E getLabel(){
             return label;
         }
 
@@ -98,7 +98,7 @@ public class Graph {
             if (temp != 0) {
                 return temp;
             } else {
-                return this.label.compareTo(o.getLabel());
+                return ((String) this.label).compareTo((String) o.getLabel());
             }
         }
 
@@ -121,24 +121,24 @@ public class Graph {
      * Rep Invariant:
      * content != null, edges != null
      */
-    public static class GraphNode implements Comparable<GraphNode> {
+    public static class GraphNode<E> implements Comparable<GraphNode<E>> {
         /**
          * the value stored by the node
          */
-        private String content;
+        private E content;
         /**
-         * the out-edges the node has
+         * Maps the content of the destination of the edge to the edge
          */
-        private Set<GraphEdge> edges;
+        private Map<E, GraphEdge> edges;
 
         /**
          * Basic Constructor for the node
          * @param content is the value to be put into the node
          * @spec.requires content != null
          */
-        public GraphNode(String content) {
+        public GraphNode(E content) {
             this.content = content;
-            edges = new HashSet<GraphEdge>();
+            edges = new HashMap<E, GraphEdge>();
         }
 
         /**
@@ -148,17 +148,17 @@ public class Graph {
          * @param edgeLabel is the label to be placed on the edge from this node to the dest node
          * @spec.requires content, dest, edgeLabel != null
          */
-        public GraphNode(String content, GraphNode dest, String edgeLabel) {
+        public GraphNode(E content, GraphNode dest, E edgeLabel) {
             this.content = content;
-            edges = new HashSet<GraphEdge>();
-            this.edges.add(new GraphEdge(dest, edgeLabel));
+            edges = new HashMap<E, GraphEdge>();
+            this.edges.put((E) dest.getContent(), new GraphEdge(dest, edgeLabel));
         }
 
         /**
          * Returns the value stored in the node
          * @return the string/value stored in the node
          */
-        public String getContent() {
+        public E getContent() {
             return content;
         }
 
@@ -170,23 +170,23 @@ public class Graph {
          */
         public boolean contains(GraphEdge edge) {
             checkRep();
-            return edges.contains(edge);
+            return edges.keySet().contains(edge.getDestination().getContent());
         }
 
         /**
-         * Returns a copy of the HashSet of edges
+         * Returns a copy of the HashMap of edges
          *
-         * @return a HashSet which is a copy of the HashSet of edges
+         * @return a HashMap which is a copy of the HashMap of edges
          */
-        public Set<GraphEdge> getEdges() {
+        public Map<E, GraphEdge> getEdges() {
             checkRep();
-            return new HashSet<>(edges);
+            return new HashMap<>(edges);
         }
 
         /**
-         * Clears the HashSet of edges
+         * Clears the HashMap of edges
          * @spec.modifies edges
-         * @spec.effects removes all the edges in the edges HashSet
+         * @spec.effects removes all the edges in the edges HashMap
          */
         public void clear() {
             checkRep();
@@ -195,15 +195,24 @@ public class Graph {
         }
 
         /**
-         * Adds an edge if it is not already there to the node
-         * @param edge: the edge to be added
+         * Returns the edge associated with the key
+         * @param key string of edge
+         * @return graphedge associated with string key
+         */
+        public @Nullable GraphEdge get(E key) {
+            return edges.get(key);
+        }
+
+        /**
+         * Adds a edge to the edge map
+         * @param edge: edge to be added
          * @spec.requires edge != null
          * @spec.modifies edges
-         * @spec.effects adds an additional edge to edges
+         * @spec.effects adds a edge to the edges HashMap
          */
         public void add(GraphEdge edge) {
             checkRep();
-            edges.add(edge);
+            edges.put((E) edge.getDestination().getContent(), edge);
             checkRep();
         }
 
@@ -212,40 +221,17 @@ public class Graph {
          * @param edge: edge to be removed
          * @spec.requires edge != null
          * @spec.modifies edges
-         * @spec.effects removes an edge from the HashSet of edges
+         * @spec.effects removes an edge from the HashMap of edges
          */
         public void remove(GraphEdge edge) {
             checkRep();
-            edges.remove(edge);
+            edges.remove(edge.getDestination().getContent());
             checkRep();
         }
 
         /**
-         * Gets an edge given the label, or null if not in the node
-         * @param content the label of the edge
-         * @return the GraphEdge associated with the label string or null if not there
-         */
-        public @Nullable GraphEdge get(String content) {
-            for (GraphEdge e: edges) {
-                if (e.getLabel().equals(content)) {
-                    return e;
-                }
-            }
-            return null;
-        }
-
-        /**
-         * Returns an iterator over the HashSet of edges
-         * @return an iterator over the edges in the HashSet edges
-         */
-        public Iterator<GraphEdge> iterator() {
-            checkRep();
-            return edges.iterator();
-        }
-
-        /**
-         * Returns the size of the edges HashSet
-         * @return the size as an int of the HashSet of edges, edges
+         * Returns the size of the edges HashMap
+         * @return the size as an int of the HashMap of edges, edges
          */
         public int size() {
             checkRep();
@@ -282,7 +268,7 @@ public class Graph {
 
         @Override
         public int compareTo(GraphNode o) {
-            return this.content.compareTo(o.getContent());
+            return ((String) this.content).compareTo((String) o.getContent());
         }
 
         /**
@@ -299,23 +285,23 @@ public class Graph {
      */
     private static final boolean TEST = true;
 
-    /** The HashSet of nodes that represent the graph*/
-    private Map<String, GraphNode> nodes;
+    /** The HashMap of nodes that represent the graph*/
+    private Map<E, GraphNode> nodes;
 
     /**
      * Graph Constructor
      */
     public Graph() {
-        nodes = new HashMap<String, GraphNode>();
+        nodes = new HashMap<E, GraphNode>();
     }
 
     /**
-     * Returns a copy of the HashSet of the internal nodes
+     * Returns a copy of the HashMap of the internal nodes
      * @return a copy of nodes
      */
-    public Map<String, GraphNode> getNodes() {
+    public Map<E, GraphNode> getNodes() {
         checkRep();
-        return new HashMap<String, GraphNode>(nodes);
+        return new HashMap<E, GraphNode>(nodes);
     }
 
     /**
@@ -323,7 +309,7 @@ public class Graph {
      * @param key string of node
      * @return graphnode associated with string key
      */
-    public @Nullable GraphNode get(String key) {
+    public @Nullable GraphNode get(E key) {
         return nodes.get(key);
     }
 
@@ -332,11 +318,11 @@ public class Graph {
      * @param node: node to be added
      * @spec.requires node != null
      * @spec.modifies nodes
-     * @spec.effects adds a node to the nodes HashSet
+     * @spec.effects adds a node to the nodes HashMap
      */
     public void add(GraphNode node) {
         checkRep();
-        nodes.put(node.getContent(), node);
+        nodes.put((E) node.getContent(), node);
         checkRep();
     }
 
@@ -345,7 +331,7 @@ public class Graph {
      * @param node: node to be removed
      * @spec.requires node != null
      * @spec.modifies nodes
-     * @spec.effects removes a node from the nodes HashSet
+     * @spec.effects removes a node from the nodes HashMap
      */
     public void remove(GraphNode node) {
         checkRep();
@@ -358,7 +344,7 @@ public class Graph {
      * @param node to be checked if contained
      * @return boolean if the graph contains a node
      */
-    public boolean contains(GraphNode node) {
+    public boolean contains(GraphNode<Object> node) {
         return nodes.keySet().contains(node.getContent());
     }
 
@@ -420,7 +406,7 @@ public class Graph {
     private void checkRep() {
         assert(nodes != null);
         if (!TEST) {
-          for (String n : nodes.keySet()) {
+          for (E n : nodes.keySet()) {
               assert(n != null);
               assert (nodes.get(n) != null);
           }

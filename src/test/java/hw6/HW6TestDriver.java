@@ -178,11 +178,13 @@ public class HW6TestDriver {
 
   private void addEdge(String graphName, String parentName, String childName, String edgeLabel) {
     Graph g = graphs.get(graphName);
+    double edgeLabel2 = Double.valueOf(edgeLabel);
     GraphNode dest = g.get(childName);
     if (dest != null) {
       GraphNode src = g.get(parentName);
       if (src != null) {
-        src.add(new GraphEdge(dest, edgeLabel));
+        // want to update the edgelabel
+        src.add(new GraphEdge(dest, edgeLabel2));
       }
     }
     output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName + " in " + graphName);
@@ -220,9 +222,9 @@ public class HW6TestDriver {
     Graph g = graphs.get(graphName);
     output.print("the children of " + parentName + " in " + graphName + " are: ");
     GraphNode node = g.get(parentName);
-    Set<GraphEdge> sorted = new TreeSet<GraphEdge>(node.getEdges()); // sorts the hashset alphabetically
-    for (GraphEdge edge : sorted) {
-      output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ") ");
+    Map<String, GraphEdge> sorted = new TreeMap<String, GraphEdge>(node.getEdges()); // sorts the hashset alphabetically
+    for (String edge : sorted.keySet()) {
+      output.print(sorted.get(edge).getDestination().getContent() + "(" + sorted.get(edge).getLabel() + ") ");
     }
     output.println();
   }

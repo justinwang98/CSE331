@@ -158,13 +158,13 @@ public class HW3TestDriver {
   private void addEdge(String graphName, String parentName, String childName, String edgeLabel) {
     Graph g = graphs.get(graphName);
     GraphNode dest = null;
-    for (String node : g.getNodes().keySet()) {
+    for (String node : (Set<String>) g.getNodes().keySet()) {
       if (node.equals(childName)) {
         dest = g.get(node);
       }
     }
     if (dest != null) {
-      for (String node : g.getNodes().keySet()) {
+      for (String node : (Set<String>) g.getNodes().keySet()) {
         if (node.equals(parentName)) {
           g.get(node).add(new GraphEdge(dest, edgeLabel));
         }
@@ -208,8 +208,8 @@ public class HW3TestDriver {
     Set<String> sorted = new TreeSet<String>(g.getNodes().keySet()); // sorts the hashset alphabetically
     for (String node : sorted) {
       if (node.equals(parentName)) {
-        for (GraphEdge edge : g.get(node).getEdges()) {
-          output.print(edge.getDestination().getContent() + "(" + edge.getLabel() + ")");
+        for (String edge : (Set<String>) g.get(node).getEdges().keySet()) {
+          output.print(g.get(node).get(edge).getDestination().getContent() + "(" + g.get(node).get(edge).getLabel() + ")");
         }
       }
     }

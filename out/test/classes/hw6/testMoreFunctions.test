@@ -1,6 +1,0 @@
-# Test the parser on a graph that contains several nodes
-# with two edges each.
-
-LoadGraph heroes staffSuperheroes.tsv
-ListNodes heroes
-ListChildren heroes Notkin-of-the-Superhuman-Beard
