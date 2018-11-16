@@ -55,11 +55,18 @@ public class MarvelPaths2 {
         }
         for (String character : chars) { // second for loop inverts all edge weights
             Graph.GraphNode tempChars = graph.get(character);
-            for (String edgeDest : (Set<String>) tempChars.getEdges().keySet()) {
-                Graph.GraphEdge tempEdge = tempChars.get(edgeDest);
-                tempChars.add(new Graph.GraphEdge(tempEdge.getDestination(), // inverts value
+            Set<String> temp = (Set<String>) tempChars.getEdges().keySet();
+          if (temp != null) {
+            for (String edgeDest : temp) {
+              Graph.GraphEdge tempEdge = tempChars.get(edgeDest);
+              if (tempEdge != null) {
+                tempChars.add(
+                    new Graph.GraphEdge(
+                        tempEdge.getDestination(), // inverts value
                         1.0 / (double) tempEdge.getLabel()));
+              }
             }
+          }
         }
         return graph;
     }
@@ -109,7 +116,7 @@ public class MarvelPaths2 {
     //                // a cost of zero because it contains no edges.
     //         Add a path from start to itself to active
     ArrayList<Graph.GraphEdge> init = new ArrayList<Graph.GraphEdge>();
-    init.add(new Graph.GraphEdge<Double>(start, 0.0));
+    init.add(new Graph.GraphEdge<Double>((Graph.GraphNode) start, 0.0));
     active.add(init);
     //
     //        while active is non-empty:
@@ -119,41 +126,49 @@ public class MarvelPaths2 {
       //        // minimum-cost path to some node
       //        minPath = active.removeMin()
       ArrayList<Graph.GraphEdge> minPath = active.poll();
+      if (minPath != null) {
         Graph.GraphEdge lastEdge = minPath.get(minPath.size() - 1);
-      //        minDest = destination node in minPath
-      Graph.GraphNode minDest = lastEdge.getDestination();
-      //
-      //        if minDest is dest:
-      if (minDest.equals(dest)) {
-        //        return minPath
+
+        //        minDest = destination node in minPath
+        Graph.GraphNode minDest = lastEdge.getDestination();
+        //
+        //        if minDest is dest:
+        if (minDest.equals(dest)) {
+          //        return minPath
           minPath.remove(0);
-        return minPath;
-      }
-      //
-      //        if minDest is in finished:
-      //        continue
-      if (finished.contains(minDest)) {
-          continue;
-      }
-
-      //
-      //        for each edge e = ⟨minDest, child⟩:
-      for (String e : (Set<String>) minDest.getEdges().keySet()) {
-        //        // If we don't know the minimum-cost path from start to child,
-        //        // examine the path we've just found
-        //        if child is not in finished:
-        if (!finished.contains(minDest.get(e).getDestination())) {
-            double updatedWeight = (double) lastEdge.getLabel() + (double) minDest.get(e).getLabel();
-          //        newPath = minPath + e
-            ArrayList<Graph.GraphEdge> newPath = new ArrayList<Graph.GraphEdge>(minPath);
-
-            newPath.add(new Graph.GraphEdge(minDest.get(e).getDestination(), (double) updatedWeight));
-            active.add(newPath);
+          return minPath;
         }
+        //
+        //        if minDest is in finished:
+        //        continue
+        if (finished.contains(minDest)) {
+          continue;
+        }
+
+        //
+        //        for each edge e = ⟨minDest, child⟩:
+        for (String e : (Set<String>) minDest.getEdges().keySet()) {
+          //        // If we don't know the minimum-cost path from start to child,
+          //        // examine the path we've just found
+          //        if child is not in finished:
+            Graph.GraphEdge edge = minDest.get(e);
+          if (edge != null) {
+            if (!finished.contains(edge.getDestination())) {
+              double updatedWeight =
+                  (double) lastEdge.getLabel() + (double) minDest.get(e).getLabel();
+              //        newPath = minPath + e
+              ArrayList<Graph.GraphEdge> newPath = new ArrayList<Graph.GraphEdge>(minPath);
+
+              newPath.add(
+                  new Graph.GraphEdge(minDest.get(e).getDestination(), (double) updatedWeight));
+              active.add(newPath);
+            }
+          }
+        }
+        //        add minDest to finished
+        finished.add(minDest);
+        //
       }
-      //        add minDest to finished
-      finished.add(minDest);
-      //
     }
     return null;
     //        If the loop terminates, then no path exists from start to dest.

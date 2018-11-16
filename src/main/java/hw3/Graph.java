@@ -98,14 +98,16 @@ public class Graph<E> {
 
 
         @Override
-        public int compareTo(GraphEdge o) {
+        public int compareTo(GraphEdge o) throws IllegalArgumentException{
             int temp = this.destination.compareTo(o.getDestination());
-
             if (temp != 0) {
                 return temp;
             } else {
-                int temp2 = ((String) this.label).compareTo((String) o.getLabel());
-                return temp2;
+                String temp2 = (String) this.label;
+                if (temp2 == null) {
+                    throw new IllegalArgumentException();
+                }
+                return temp2.compareTo((String) o.getLabel());
             }
         }
 
@@ -273,10 +275,19 @@ public class Graph<E> {
             return 53 * Objects.hash(edges, content);
         }
 
+        /**
+         * CompareTo document
+         * @param o, other graphnode to be compared to
+         * @throws IllegalArgumentException if this.content is null
+         * @return int, describing the relationship
+         */
         @Override
-        public int compareTo(GraphNode o) {
-            int temp = ((String) this.content).compareTo((String) o.getContent());
-            return temp;
+        public int compareTo(GraphNode o) throws IllegalArgumentException{
+            String temp = (String) this.content;
+            if (temp == null) {
+                throw new IllegalArgumentException();
+            }
+            return temp.compareTo((String) o.getContent());
         }
 
         /**
