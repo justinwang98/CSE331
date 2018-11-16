@@ -4,6 +4,7 @@ import hw3.Graph;
 import hw6.MarvelParser;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /** this is not an ADT*/
@@ -42,9 +43,10 @@ public class MarvelPaths2 {
                             if (temp2 != null) {
                                 Graph.GraphEdge edge = temp2.get(temp.getContent());
                                 if (edge == null) { // no edge yet
-                                    temp2.add(new Graph.GraphEdge(temp, 1)); // add edge between src and dest node
+                                    temp2.add(new Graph.GraphEdge(temp, 1.0)); // add edge between src and dest node
+                                } else {
+                                  temp2.add(new Graph.GraphEdge(temp, (double) edge.getLabel() + 1.0)); // increment weight
                                 }
-                                temp2.add(new Graph.GraphEdge(temp, (double) edge.getLabel() + 1)); // increment weight
                             }
                         }
                     }
@@ -83,8 +85,22 @@ public class MarvelPaths2 {
     //        given node. A path's “priority” in the queue is the total
     //        cost of that path. Nodes for which no path is known yet are
     //        not in the queue.
-    PriorityQueue<LinkedList<Graph.GraphEdge>> active =
-        new PriorityQueue<LinkedList<Graph.GraphEdge>>();
+    Queue<ArrayList<Graph.GraphEdge>> active =
+        new PriorityQueue<ArrayList<Graph.GraphEdge>>(new Comparator<ArrayList<Graph.GraphEdge>>() {
+            @Override
+            public int compare(ArrayList<Graph.GraphEdge> o1, ArrayList<Graph.GraphEdge> o2) {
+                double path1 = (double) o1.get(o1.size() - 1).getLabel();
+                double path2 = (double) o2.get(o2.size() - 1).getLabel();
+                if (path1 > path2) {
+                    return 1;
+                } else if (path2 > path1) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
     //        finished = set of nodes for which we know the minimum-cost path from
     //        start.
     Set<Graph.GraphNode> finished = new HashSet<Graph.GraphNode>();
@@ -92,20 +108,25 @@ public class MarvelPaths2 {
     //                // Initially we only know of the path from start to itself, which has
     //                // a cost of zero because it contains no edges.
     //         Add a path from start to itself to active
-    active.add(new LinkedList<>());
+    ArrayList<Graph.GraphEdge> init = new ArrayList<Graph.GraphEdge>();
+    init.add(new Graph.GraphEdge<Double>(start, 0.0));
+    active.add(init);
     //
     //        while active is non-empty:
     while (!active.isEmpty()) {
+
       //        // minPath is the lowest-cost path in active and is the
       //        // minimum-cost path to some node
       //        minPath = active.removeMin()
-      LinkedList<Graph.GraphEdge> minPath = active.remove();
+      ArrayList<Graph.GraphEdge> minPath = active.poll();
+        Graph.GraphEdge lastEdge = minPath.get(minPath.size() - 1);
       //        minDest = destination node in minPath
-      Graph.GraphNode minDest = minPath.getLast().getDestination();
+      Graph.GraphNode minDest = lastEdge.getDestination();
       //
       //        if minDest is dest:
       if (minDest.equals(dest)) {
         //        return minPath
+          minPath.remove(0);
         return minPath;
       }
       //
@@ -121,12 +142,13 @@ public class MarvelPaths2 {
         //        // If we don't know the minimum-cost path from start to child,
         //        // examine the path we've just found
         //        if child is not in finished:
-        if (finished.contains(minDest.get(e).getDestination())) {
+        if (!finished.contains(minDest.get(e).getDestination())) {
+            double updatedWeight = (double) lastEdge.getLabel() + (double) minDest.get(e).getLabel();
           //        newPath = minPath + e
-          LinkedList newPath = minPath;
-          newPath.add(minDest.get(e));
-          //        add newPath to active
-          active.add(newPath);
+            ArrayList<Graph.GraphEdge> newPath = new ArrayList<Graph.GraphEdge>(minPath);
+
+            newPath.add(new Graph.GraphEdge(minDest.get(e).getDestination(), (double) updatedWeight));
+            active.add(newPath);
         }
       }
       //        add minDest to finished

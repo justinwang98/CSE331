@@ -2,7 +2,6 @@ package hw7;
 
 import hw3.Graph;
 import hw6.MarvelParser;
-import hw6.MarvelPaths;
 
 import java.io.*;
 import java.util.*;
@@ -21,18 +20,18 @@ public class HW7TestDriver {
         return;
       }
 
-      hw6.HW6TestDriver td;
+      hw7.HW7TestDriver td;
 
       if (args.length == 0) {
         td =
-                new hw6.HW6TestDriver(new InputStreamReader(System.in), new OutputStreamWriter(System.out));
+                new hw7.HW7TestDriver(new InputStreamReader(System.in), new OutputStreamWriter(System.out));
       } else {
 
         String fileName = args[0];
         File tests = new File(fileName);
 
         if (tests.exists() || tests.canRead()) {
-          td = new hw6.HW6TestDriver(new FileReader(tests), new OutputStreamWriter(System.out));
+          td = new hw7.HW7TestDriver(new FileReader(tests), new OutputStreamWriter(System.out));
         } else {
           System.err.println("Cannot read from " + tests.toString());
           printUsage();
@@ -48,8 +47,8 @@ public class HW7TestDriver {
 
   private static void printUsage() {
     System.err.println("Usage:");
-    System.err.println("to read from a file: java hw6.test.HW6TestDriver <name of input script>");
-    System.err.println("to read from standard in: java hw6.test.HW6TestDriver");
+    System.err.println("to read from a file: java hw7.test.HW7TestDriver <name of input script>");
+    System.err.println("to read from standard in: java hw7.test.HW7TestDriver");
   }
 
   /** String -> Graph: maps the names of graphs to the actual graph * */
@@ -231,7 +230,7 @@ public class HW7TestDriver {
   }
 
   private void findPath(List<String> arguments) {
-    Graph g = graphs.get(arguments.get(0));
+    Graph<String> g = graphs.get(arguments.get(0));
     // sets the first and nth character and replaces underscores with spaces
     String char1 = arguments.get(1).replace("_", " ");
     String charn = arguments.get(2).replace("_", " ");
@@ -244,7 +243,7 @@ public class HW7TestDriver {
     if (g.get(char1) != null && g.get(charn) != null) {
       output.println("path from " + char1 + " to " + charn + ":");
       if (g.get(char1) != g.get(charn)) {
-        List<Graph.GraphEdge> list = MarvelPaths.MarvelPaths(char1, charn, g);
+        List<Graph.GraphEdge> list = MarvelPaths2.MarvelPaths2(char1, charn, g);
         if (list == null) {
           output.println("no path found");
         } else {
@@ -255,11 +254,11 @@ public class HW7TestDriver {
                   char1
                           + " to "
                           + list.get(0).getDestination().getContent()
-                          + " via "
+                          + " with weight "
                           + String.format("%.3f", edgeWeight1));
           totalWeight += edgeWeight1;
           for (int i = 1; i < list.size(); i++) {
-            double edgeWeight2 = (Double) list.get(0).getLabel();
+            double edgeWeight2 = (Double) list.get(i).getLabel() - (Double) list.get(i - 1).getLabel();
             output.println(
                     list.get(i - 1).getDestination().getContent()
                             + " to "
@@ -268,7 +267,8 @@ public class HW7TestDriver {
                             + String.format("%.3f", edgeWeight2));
             totalWeight += edgeWeight2;
           }
-          output.println("total cost: " + totalWeight);
+          output.println("total cost: " + String.format("%.3f", totalWeight));
+
         }
       }
     }

@@ -73,14 +73,19 @@ public class Graph<E> {
             } else {
                 checkRep();
                 GraphEdge otherEdge = (GraphEdge) other;
-                if (!otherEdge.getLabel().equals(this.label)) {
-                    return false;
-                }
                 if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
                     return false;
                 }
             }
             return true;
+        }
+
+        /**
+         * to string method for edges
+         * @return string, representing the edge label
+         */
+        @Override public String toString() {
+            return "Edge weight: " + this.label;
         }
 
         /**
@@ -256,8 +261,8 @@ public class Graph<E> {
                 if (!otherNode.getContent().equals(this.content)) {
                     return false;
                 }
-                return edges.equals(otherNode.getEdges());
             }
+            return true;
         }
 
         /**
