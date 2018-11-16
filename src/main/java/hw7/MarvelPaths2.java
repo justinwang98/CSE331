@@ -55,18 +55,18 @@ public class MarvelPaths2 {
         }
         for (String character : chars) { // second for loop inverts all edge weights
             Graph.GraphNode tempChars = graph.get(character);
-            Set<String> temp = (Set<String>) tempChars.getEdges().keySet();
-          if (temp != null) {
-            for (String edgeDest : temp) {
-              Graph.GraphEdge tempEdge = tempChars.get(edgeDest);
-              if (tempEdge != null) {
-                tempChars.add(
-                    new Graph.GraphEdge(
-                        tempEdge.getDestination(), // inverts value
-                        1.0 / (double) tempEdge.getLabel()));
-              }
+            if (tempChars != null) {
+                Set<String> temp = (Set<String>) tempChars.getEdges().keySet();
+                for (String edgeDest : temp) {
+                  Graph.GraphEdge tempEdge = tempChars.get(edgeDest);
+                  if (tempEdge != null) {
+                    tempChars.add(
+                        new Graph.GraphEdge(
+                            tempEdge.getDestination(), // inverts value
+                            1.0 / (double) tempEdge.getLabel()));
+                  }
+                }
             }
-          }
         }
         return graph;
     }
@@ -116,7 +116,9 @@ public class MarvelPaths2 {
     //                // a cost of zero because it contains no edges.
     //         Add a path from start to itself to active
     ArrayList<Graph.GraphEdge> init = new ArrayList<Graph.GraphEdge>();
-    init.add(new Graph.GraphEdge<Double>((Graph.GraphNode) start, 0.0));
+    if (start != null) {
+      init.add(new Graph.GraphEdge<Double>(start, 0.0));
+    }
     active.add(init);
     //
     //        while active is non-empty:
@@ -155,12 +157,12 @@ public class MarvelPaths2 {
           if (edge != null) {
             if (!finished.contains(edge.getDestination())) {
               double updatedWeight =
-                  (double) lastEdge.getLabel() + (double) minDest.get(e).getLabel();
+                  (double) lastEdge.getLabel() + (double) edge.getLabel();
               //        newPath = minPath + e
               ArrayList<Graph.GraphEdge> newPath = new ArrayList<Graph.GraphEdge>(minPath);
 
               newPath.add(
-                  new Graph.GraphEdge(minDest.get(e).getDestination(), (double) updatedWeight));
+                  new Graph.GraphEdge(edge.getDestination(), (double) updatedWeight));
               active.add(newPath);
             }
           }
