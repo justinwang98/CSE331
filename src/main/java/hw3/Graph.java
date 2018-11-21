@@ -7,7 +7,7 @@ import org.eclipse.jgit.annotations.Nullable;
 import java.util.*;
 
 /**
- * Represents a multigraph without duplicate edges
+ * AF: Represents a multigraph without duplicate edges, That accepts any E element
  * @spec.specfield nodes : HashMap of GraphNode // The HashMap of nodes that represent the graph
  *
  * Rep Invariant:
@@ -23,7 +23,7 @@ public class Graph<E> {
      * Rep invariant:
      *  edge cannot be null, E cannot be null
      */
-    public static class GraphEdge<E> implements Comparable<GraphEdge<E>>{
+    public static class GraphEdge<E> {
 
         /** The node where the edge points to.*/
         private GraphNode destination;
@@ -67,12 +67,12 @@ public class Graph<E> {
          */
         @Override public boolean equals(@Nullable Object other) {
             checkRep();
-            if (!(other instanceof GraphEdge)) {
+            if (!(other instanceof GraphEdge<?>)) {
                 checkRep();
                 return false;
             } else {
                 checkRep();
-                GraphEdge otherEdge = (GraphEdge) other;
+                GraphEdge<?> otherEdge = (GraphEdge<?>) other;
                 if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
                     return false;
                 }
@@ -96,21 +96,6 @@ public class Graph<E> {
             return 31 * Objects.hash(label, destination.getContent());
         }
 
-
-        @Override
-        public int compareTo(GraphEdge o) throws IllegalArgumentException{
-            int temp = this.destination.compareTo(o.getDestination());
-            if (temp != 0) {
-                return temp;
-            } else {
-                String temp2 = (String) this.label;
-                if (temp2 == null) {
-                    throw new IllegalArgumentException();
-                }
-                return temp2.compareTo((String) o.getLabel());
-            }
-        }
-
         /**
          * Checks to see if the representation invariant holds
          */
@@ -123,14 +108,14 @@ public class Graph<E> {
 
 
     /**
-     * Represents a Node in a Graph
+     * AF: Represents a Node in a Graph
      * @spec.specfield content: String // the content held by a node
      * @spec.specfield edges : HashSet of GraphEdge // the out-edges a node has
      *
      * Rep Invariant:
      * content != null, edges != null
      */
-    public static class GraphNode<E> implements Comparable<GraphNode<E>> {
+    public static class GraphNode<E> {
         /**
          * the value stored by the node
          */
@@ -276,21 +261,6 @@ public class Graph<E> {
         }
 
         /**
-         * CompareTo document
-         * @param o, other graphnode to be compared to
-         * @throws IllegalArgumentException if this.content is null
-         * @return int, describing the relationship
-         */
-        @Override
-        public int compareTo(GraphNode o) throws IllegalArgumentException{
-            String temp = (String) this.content;
-            if (temp == null) {
-                throw new IllegalArgumentException();
-            }
-            return temp.compareTo((String) o.getContent());
-        }
-
-        /**
          * Checks to see if the representation invariant holds
          */
         private void checkRep() {
@@ -425,10 +395,10 @@ public class Graph<E> {
     private void checkRep() {
         assert(nodes != null);
         if (!TEST) {
-          for (E n : nodes.keySet()) {
-              assert(n != null);
-              assert (nodes.get(n) != null);
-          }
+            for (E n : nodes.keySet()) {
+                assert(n != null);
+                assert (nodes.get(n) != null);
+            }
         }
     }
 }
