@@ -25,9 +25,10 @@ public class DataParser {
   public static void parseBuildingData(String filenameBuildings, Map<String, String> nametoLong,
                                        Map<String, Coordinates> buildings)
           throws MarvelParser.MalformedDataException {
+    String file = "./src/main/java/hw8/data/" + filenameBuildings;
     BufferedReader reader = null;
     try { // parse buildings
-      reader = new BufferedReader(new FileReader(filenameBuildings));
+      reader = new BufferedReader(new FileReader(file));
 
       // Construct the collections of characters and books, one
       // <character, book> pair at a time.
@@ -82,9 +83,10 @@ public class DataParser {
    */
   public static void parsePathData(String filenamePaths, Graph g, Map<String, Coordinates> paths)
           throws MarvelParser.MalformedDataException, CsvDataTypeMismatchException, CsvConstraintViolationException {
+    String file = "./src/main/java/hw8/data/" + filenamePaths;
     BufferedReader reader = null;
     try { // parse paths
-      reader = new BufferedReader(new FileReader(filenamePaths));
+      reader = new BufferedReader(new FileReader(file));
 
       // Construct the collections of characters and books, one
       // <character, book> pair at a time.
