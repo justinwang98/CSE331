@@ -13,19 +13,12 @@ public class CampusPathsVC {
         action("m"); // start
     }
 
-    public static void menu() throws MarvelParser.MalformedDataException {
-    System.out.println(
-        "Menu:\n"
-            + "\tr to find a route\n"
-            + "\tb to see a list of all buildings\n"
-            + "\tq to quit");
-    }
-
     public static void action(String choice) throws MarvelParser.MalformedDataException {
         while(!choice.equals("q")) {
             if (choice.equals("m")) {
                 menu();
             } else if (choice.equals("r")) {
+                findPath();
             } else if (choice.equals("b")) {
                 printBuildings();
             } else {
@@ -36,11 +29,35 @@ public class CampusPathsVC {
         }
     }
 
+    public static void menu() {
+        System.out.println(
+                "Menu:\n"
+                        + "\tr to find a route\n"
+                        + "\tb to see a list of all buildings\n"
+                        + "\tq to quit");
+    }
+
     public static void printBuildings() throws MarvelParser.MalformedDataException {
         List<String> buildingList = CampusPathModel.buildings();
         System.out.println("Buildings:");
         for (String s : buildingList) {
             System.out.println("\t" + s);
+        }
+    }
+
+    public static void findPath() throws MarvelParser.MalformedDataException {
+        System.out.print("Abbreviated name of starting building: ");
+        String source = scanner.next();
+
+        System.out.print("Abbreviated name of destination building: ");
+        String destination = scanner.next();
+
+        List<String> path = CampusPathModel.findShortestPath(source, destination);
+
+        if (path != null) {
+            for (String s : path) {
+                System.out.println("\t" + s);
+            }
         }
     }
 }

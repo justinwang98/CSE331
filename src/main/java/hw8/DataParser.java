@@ -23,7 +23,7 @@ public class DataParser {
    * @throws MarvelParser.MalformedDataException
    */
   public static void parseBuildingData(String filenameBuildings, Map<String, String> nametoLong,
-                                       Map<String, Coordinates> buildings)
+                                       Map<String, String> buildings)
           throws MarvelParser.MalformedDataException {
     String file = "./src/main/java/hw8/data/" + filenameBuildings;
     BufferedReader reader = null;
@@ -50,12 +50,10 @@ public class DataParser {
 
         String shortName = tokens[0];
         String longName = tokens[1];
-        double xCoord = Double.valueOf(tokens[2]);
-        double yCoord = Double.valueOf(tokens[3]);
-        Coordinates coord = new Coordinates(xCoord, yCoord);
+        String coords = tokens[2] + "," + tokens[3];
 
         nametoLong.put(shortName, longName);
-        buildings.put(shortName, coord);
+        buildings.put(shortName, coords);
       }
     } catch (IOException e) {
       System.err.println(e.toString());

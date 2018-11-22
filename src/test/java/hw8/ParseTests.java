@@ -20,7 +20,7 @@ public class ParseTests {
 
     Graph g = new Graph();
     Map<String, String> nameMap = new HashMap<String,String>();
-    Map<String, Coordinates> dataMap = new HashMap<String, Coordinates>();
+    Map<String, String> dataMap = new HashMap<String, String>();
     DataParser parser = new DataParser();
 
     public void setupBuildings() throws MarvelParser.MalformedDataException {
@@ -92,5 +92,28 @@ public class ParseTests {
         assertEquals(1800.14, temp2.get(temp3.getContent()).getLabel());
         assertEquals(2100.15, temp3.get(temp1.getContent()).getLabel());
         assertEquals(100.47, temp4.get(temp3.getContent()).getLabel());
+    }
+
+    @Test
+    public void testDataMappings() throws MarvelParser.MalformedDataException, CsvDataTypeMismatchException,
+            CsvConstraintViolationException {
+
+        setupBuildings();
+        setupPaths();
+
+        String real1 = "100.2,300.6";
+        String real2 = "400.64,729.8";
+        String real3 = "2243.48,4697.23";
+        String real4 = "2384.43,1928.97";
+
+        String get1 = dataMap.get("home");
+        String get2 = dataMap.get("home2");
+        String get3 = dataMap.get("uw");
+        String get4 = dataMap.get("Seatac");
+
+        assertEquals(real1, get1);
+        assertEquals(real2, get2);
+        assertEquals(real3, get3);
+        assertEquals(real4, get4);
     }
 }
