@@ -82,8 +82,6 @@ public class MarvelPaths2 {
    */
   public static @Nullable List<Graph.GraphEdge> MarvelPaths2(
       String char1, String char2, Graph<String> graph) {
-
-    try {
       //        Dijkstra's algorithm assumes a graph with nonnegative edge weights.
       //
       //        start = starting node
@@ -176,9 +174,5 @@ public class MarvelPaths2 {
       return null;
       //        If the loop terminates, then no path exists from start to dest.
       //                The implementation should indicate this to the client.
-    } catch (ArrayIndexOutOfBoundsException e) {
-      e.printStackTrace();
-      return null;
     }
-      }
 }

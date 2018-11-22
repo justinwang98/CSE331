@@ -5,30 +5,53 @@ import hw6.MarvelParser;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * this is not an adt
+ */
 public class CampusPathsVC {
+    /**
+     * Creates a scanner to be utilized for sys.in
+     */
     private static Scanner scanner;
 
+    /**
+     * main method, starts the program
+     * @param args: arguments to be passed in
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static void main(String[] args) throws MarvelParser.MalformedDataException {
         scanner = new Scanner(System.in);
         action("m"); // start
     }
 
+    /**
+     * Servers as the controller for the program, doing things based on what string is passed in
+     * @param choice: choice of what command to execute
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static void action(String choice) throws MarvelParser.MalformedDataException {
-        while(!choice.equals("q")) {
-            if (choice.equals("m")) {
-                menu();
-            } else if (choice.equals("r")) {
-                findPath();
-            } else if (choice.equals("b")) {
-                printBuildings();
+        while (!choice.equals("q")) {
+            if (choice.equals("") || choice.charAt(0) == '#') {
+                System.out.println(choice);
             } else {
-                System.out.println("Unknown Option");
+                if (choice.equals("m")) {
+                  menu();
+                } else if (choice.equals("r")) {
+                  findPath();
+                } else if (choice.equals("b")) {
+                  printBuildings();
+                } else {
+                  System.out.println("Unknown option");
+                }
+                System.out.print("\nEnter an option ('m' to see the menu): ");
             }
-            System.out.print("\nEnter an option ('m' to see the menu): ");
-            choice = scanner.next();
+            choice = scanner.nextLine();
         }
     }
 
+    /**
+     * Prints out the menu
+     */
     public static void menu() {
         System.out.println(
                 "Menu:\n"
@@ -37,6 +60,10 @@ public class CampusPathsVC {
                         + "\tq to quit");
     }
 
+    /**
+     * Prints out the buildings
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static void printBuildings() throws MarvelParser.MalformedDataException {
         List<String> buildingList = CampusPathModel.buildings();
         System.out.println("Buildings:");
@@ -45,12 +72,16 @@ public class CampusPathsVC {
         }
     }
 
+    /**
+     * Finds the shortest path between two given points
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static void findPath() throws MarvelParser.MalformedDataException {
         System.out.print("Abbreviated name of starting building: ");
-        String source = scanner.next();
+        String source = scanner.nextLine();
 
-        System.out.print("Abbreviated name of destination building: ");
-        String destination = scanner.next();
+        System.out.print("Abbreviated name of ending building: ");
+        String destination = scanner.nextLine();
 
         List<String> path = CampusPathModel.findShortestPath(source, destination);
 
