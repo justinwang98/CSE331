@@ -60,7 +60,7 @@ public class CampusPathModel {
     /**
      * Creates a list of strings to be given to the controller of the buildings
      * @return A list of strings containing properly formated buildings
-     * @throws MarvelParser.MalformedDataException
+     * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static List<String> buildings() throws MarvelParser.MalformedDataException {
         init();

@@ -20,7 +20,7 @@ public class DataParser {
    * @param filenameBuildings the file to be parsed from
    * @param nametoLong map that maps short names to longer names
    * @param buildings map that maps short names to coordinates
-   * @throws MarvelParser.MalformedDataException
+   * @throws MarvelParser.MalformedDataException if data is malformed
    */
   public static void parseBuildingData(String filenameBuildings, Map<String, String> nametoLong,
                                        Map<String, String> buildings)
@@ -76,8 +76,6 @@ public class DataParser {
    * @param filenamePaths file with the path info
    * @param g graph to be modified
    * @throws MarvelParser.MalformedDataException if data is malformed
-   * @throws CsvDataTypeMismatchException if csv data is mismatched
-   * @throws CsvConstraintViolationException if violates csv constraints
    */
   public static void parsePathData(String filenamePaths, Graph g)
           throws MarvelParser.MalformedDataException {
