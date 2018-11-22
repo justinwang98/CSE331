@@ -1,5 +1,7 @@
 package hw8;
 
+import hw6.MarvelParser;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +28,7 @@ public class HW8TestDriver {
     this.out = out;
   }
 
-  public void runTests() throws FileNotFoundException {
+  public void runTests() throws FileNotFoundException, MarvelParser.MalformedDataException {
     // Store original values of I/O streams.
     InputStream stdin = System.in;
     PrintStream stdout = System.out;
@@ -39,7 +41,7 @@ public class HW8TestDriver {
     // TODO: add a line here to call your main method. For example, if your
     // main class is called CampusPaths, write:
     // CampusPaths.main(new String[0]);
-
+    CampusPathsVC.main(new String[0]);
     // Restore standard I/O streams.
     System.setIn(stdin);
     System.setOut(stdout);
