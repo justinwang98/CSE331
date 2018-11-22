@@ -13,15 +13,36 @@ import java.util.*;
 public class CampusPathModel {
 
     /**
-     * finals represent values of pi to compare to when testing for direction
+     * finals represent value of 1/8 pi to compare to when testing for direction
      */
     private static final double ONE_EIGHTH_PI = Math.PI / 8;
+    /**
+     * finals represent value of 3/8 pi to compare to when testing for direction
+     */
     private static final double THREE_EIGHTHS_PI = 3 * ONE_EIGHTH_PI;
+    /**
+     * finals represent value of 5/8 pi to compare to when testing for direction
+     */
     private static final double FIVE_EIGHTHS_PI = 5 * ONE_EIGHTH_PI;
+    /**
+     * finals represent value of 7/8 pi to compare to when testing for direction
+     */
     private static final double SEVEN_EIGHTHS_PI = 7 * ONE_EIGHTH_PI;
+    /**
+     * finals represent value of -1/8 pi to compare to when testing for direction
+     */
     private static final double NEG_ONE_EIGHTH_PI = -1 * ONE_EIGHTH_PI;
+    /**
+     * finals represent value of -3/8 pi to compare to when testing for direction
+     */
     private static final double NEG_THREE_EIGHTHS_PI = -1 * THREE_EIGHTHS_PI;
+    /**
+     * finals represent value of -5/8 pi to compare to when testing for direction
+     */
     private static final double NEG_FIVE_EIGHTHS_PI = -1 * FIVE_EIGHTHS_PI;
+    /**
+     * finals represent value of -7/8 pi to compare to when testing for direction
+     */
     private static final double NEG_SEVEN_EIGHTHS_PI = -1 * SEVEN_EIGHTHS_PI;
 
     /**
