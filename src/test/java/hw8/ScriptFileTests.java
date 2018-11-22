@@ -2,15 +2,13 @@ package hw8;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import hw6.MarvelParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized.Parameters;
@@ -125,7 +123,7 @@ public class ScriptFileTests {
    * @spec.requires that the specified File exists && File ends with a newline
    * @returns the contents of that file
    */
-  private String fileContents(File f) throws IOException {
+  private String fileContents(File f) throws IOException, IllegalArgumentException, FileNotFoundException {
     if (f == null) {
       throw new IllegalArgumentException("No file specified");
     }
@@ -152,7 +150,7 @@ public class ScriptFileTests {
    *     with name filename+".actual"; if that file already exists, it will be overwritten.
    * @returns the contents of the output file
    */
-  private String runScriptFile() throws IOException {
+  private String runScriptFile() throws IOException, MarvelParser.MalformedDataException {
     if (testScriptFile == null) {
       throw new RuntimeException("No file specified");
     }
@@ -184,7 +182,7 @@ public class ScriptFileTests {
    * @throws IOException
    */
   @Test(timeout = 30000)
-  public void checkAgainstExpectedOutput() throws IOException {
+  public void checkAgainstExpectedOutput() throws IOException, MarvelParser.MalformedDataException {
     File expected = fileWithSuffix("expected");
     assertEquals(testScriptFile.getName(), fileContents(expected), runScriptFile());
   }
