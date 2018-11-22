@@ -1,0 +1,8 @@
+# Verify that the program finds and correctly outputs the shortest path from
+# BAG to BAG (NE).
+r
+BAG
+BAG (NE)
+
+# All of your test scripts should end with q to terminate the program.
+q
