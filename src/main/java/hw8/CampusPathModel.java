@@ -142,7 +142,11 @@ public class CampusPathModel {
 
         if (edgeList != null) {
           for (Graph.GraphEdge edge : edgeList) {
-            String[] preFormated = ((String) edge.getDestination().getContent()).split(",");
+          String temp = (String) edge.getDestination().getContent();
+          String[] preFormated = new String[0];
+            if (temp != null) {
+               preFormated= temp.split(",");
+            }
             x2 = Double.valueOf(preFormated[0]);
             y2 = Double.valueOf(preFormated[1]);
             double currDist = (double) edge.getLabel();
