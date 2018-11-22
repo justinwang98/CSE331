@@ -8,7 +8,11 @@ import hw6.MarvelParser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * This is not an ADT
@@ -28,7 +32,7 @@ public class DataParser {
     String file = "./src/main/java/hw8/data/" + filenameBuildings;
     BufferedReader reader = null;
     try { // parse buildings
-      reader = new BufferedReader(new FileReader(file));
+      reader = Files.newBufferedReader(Paths.get(file), UTF_8);
 
       // Construct the collections of characters and books, one
       // <character, book> pair at a time.
@@ -43,7 +47,11 @@ public class DataParser {
 
         // Parse the data and throwing
         // an exception for malformed lines.
-        String[] tokens = inputLine.split("\t");
+        String temp = inputLine;
+        String[] tokens = new String[0];
+        if (temp != null) {
+          tokens = inputLine.split("\t");
+        }
         if (tokens.length != 4) {
           throw new MarvelParser.MalformedDataException("Line should contain exactly three tabs: " + inputLine);
         }
@@ -82,7 +90,7 @@ public class DataParser {
     String file = "./src/main/java/hw8/data/" + filenamePaths;
     BufferedReader reader = null;
     try { // parse paths
-      reader = new BufferedReader(new FileReader(file));
+      reader = Files.newBufferedReader(Paths.get(file), UTF_8);
 
       // Construct the collections of characters and books, one
       // <character, book> pair at a time.
@@ -97,7 +105,11 @@ public class DataParser {
 
         // Parse the data and throwing
         // an exception for malformed lines.
-        String[] tokens = inputLine.split("\t");
+        String temp = inputLine;
+        String[] tokens = new String[0];
+        if (temp != null) {
+          tokens = inputLine.split("\t");
+        }
         if (tokens.length != 3) {
           throw new MarvelParser.MalformedDataException("Line should contain exactly two tabs: " + inputLine);
         }
