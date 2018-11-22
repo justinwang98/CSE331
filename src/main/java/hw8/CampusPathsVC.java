@@ -20,6 +20,7 @@ public class CampusPathsVC {
      * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static void main(String[] args) throws MarvelParser.MalformedDataException {
+        scanner = new Scanner(System.in);
         action("m"); // start
     }
 
