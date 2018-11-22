@@ -73,8 +73,10 @@ public class Graph<E> {
             } else {
                 checkRep();
                 GraphEdge<?> otherEdge = (GraphEdge<?>) other;
-                if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
-                    return false;
+                if (otherEdge.getLabel() != null) {
+                    if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
+                        return false;
+                    }
                 }
             }
             return true;

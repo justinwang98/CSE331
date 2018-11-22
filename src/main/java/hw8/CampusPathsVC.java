@@ -1,6 +1,7 @@
 package hw8;
 
 import hw6.MarvelParser;
+import org.checkerframework.checker.initialization.qual.Initialized;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class CampusPathsVC {
     /**
      * Creates a scanner to be utilized for sys.in
      */
-    private static Scanner scanner;
+    private static @Initialized Scanner scanner;
 
     /**
      * main method, starts the program

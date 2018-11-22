@@ -3,6 +3,7 @@ package hw8;
 import hw3.Graph;
 import hw6.MarvelParser;
 import hw7.MarvelPaths2;
+import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.*;
@@ -27,17 +28,17 @@ public class CampusPathModel {
     /**
      * mapping shortened names to long names
      */
-    private static Map<String, String> nameToLong;
+    private static @Initialized Map<String, String> nameToLong;
 
     /**
      * mapping short names to coordinate strings
      */
-    private static Map<String, String> coordData;
+    private static @Initialized Map<String, String> coordData;
 
     /**
      * Graph holding the data
      */
-    private static Graph g;
+    private static @Initialized Graph g;
 
     /**
      * initiliazes the data
@@ -106,7 +107,10 @@ public class CampusPathModel {
 
         String srcCoords = coordData.get(src);
         String endCoords = coordData.get(dest);
-        List<Graph.GraphEdge> edgeList = MarvelPaths2.MarvelPaths2(srcCoords, endCoords, g);
+        List<Graph.GraphEdge> edgeList = new ArrayList<Graph.GraphEdge>();
+        if (srcCoords != null && endCoords != null) {
+          edgeList = MarvelPaths2.MarvelPaths2(srcCoords, endCoords, g);
+        }
         double totalDistance = 0.0;
 
         String[] srcSplit = srcCoords.split(",");
@@ -119,7 +123,8 @@ public class CampusPathModel {
         y = Double.valueOf(srcSplit[1]);
         double prevDist = 0;
 
-        for (Graph.GraphEdge edge : edgeList) {
+        if (edgeList != null) {
+          for (Graph.GraphEdge edge : edgeList) {
             String[] preFormated = ((String) edge.getDestination().getContent()).split(",");
             x2 = Double.valueOf(preFormated[0]);
             y2 = Double.valueOf(preFormated[1]);
@@ -127,12 +132,18 @@ public class CampusPathModel {
             totalDistance += currDist - prevDist;
 
             String direction = getDirection(Math.atan2(y2 - y, x2 - x));
-            String miniPath = String.format("\tWalk %.0f feet %s to (%.0f, %.0f)", currDist - prevDist,
-                    direction, Double.valueOf(preFormated[0]), Double.valueOf(preFormated[1]));
+            String miniPath =
+                String.format(
+                    "\tWalk %.0f feet %s to (%.0f, %.0f)",
+                    currDist - prevDist,
+                    direction,
+                    Double.valueOf(preFormated[0]),
+                    Double.valueOf(preFormated[1]));
             strList.add(miniPath);
             prevDist = currDist;
             x = x2;
             y = y2;
+          }
         }
         strList.add(String.format("Total distance: %.0f feet", totalDistance)); // includes total distance
         return strList;
