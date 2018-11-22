@@ -8,6 +8,16 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.*;
 
 public class CampusPathModel {
+
+    private static final double ONE_EIGHTH_PI = Math.PI / 8;
+    private static final double THREE_EIGHTHS_PI = 3 * ONE_EIGHTH_PI;
+    private static final double FIVE_EIGHTHS_PI = 5 * ONE_EIGHTH_PI;
+    private static final double SEVEN_EIGHTHS_PI = 7 * ONE_EIGHTH_PI;
+    private static final double NEG_ONE_EIGHTH_PI = -1 * ONE_EIGHTH_PI;
+    private static final double NEG_THREE_EIGHTHS_PI = -1 * THREE_EIGHTHS_PI;
+    private static final double NEG_FIVE_EIGHTHS_PI = -1 * FIVE_EIGHTHS_PI;
+    private static final double NEG_SEVEN_EIGHTHS_PI = -1 * SEVEN_EIGHTHS_PI;
+
     private static Map<String, String> nameToLong;
     private static Map<String, String> coordData;
     private static Graph g;
@@ -83,14 +93,27 @@ public class CampusPathModel {
             x = x2;
             y = y2;
         }
-        strList.add(String.format("%.0", totalDistance)); // includes total distance
+        strList.add(String.format("Total distance: %.0 feet", totalDistance)); // includes total distance
         return strList;
     }
 
     public static String getDirection(double theta) {
-        String direction = "";
-
-
-        return direction;
+        if ((theta > 0 && theta <= ONE_EIGHTH_PI) || (theta < 0 && theta > NEG_ONE_EIGHTH_PI)) {
+            return "E";
+        } else if (theta > ONE_EIGHTH_PI && theta <= THREE_EIGHTHS_PI) {
+            return "NE";
+        } else if (theta > THREE_EIGHTHS_PI && theta <= FIVE_EIGHTHS_PI) {
+            return "N";
+        } else if (theta > FIVE_EIGHTHS_PI && theta <= SEVEN_EIGHTHS_PI) {
+            return "NW";
+        } else if (theta >= NEG_SEVEN_EIGHTHS_PI && theta < NEG_FIVE_EIGHTHS_PI) {
+            return "SW";
+        } else if (theta >= NEG_FIVE_EIGHTHS_PI && theta < NEG_THREE_EIGHTHS_PI) {
+            return "S";
+        } else if (theta >= NEG_THREE_EIGHTHS_PI && theta < NEG_ONE_EIGHTH_PI) {
+            return "SE";
+        } else {
+            return "W";
+        }
     }
 }

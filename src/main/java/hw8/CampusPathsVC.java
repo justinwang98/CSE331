@@ -56,7 +56,7 @@ public class CampusPathsVC {
 
         if (path != null) {
             for (String s : path) {
-                System.out.println("\t" + s);
+                System.out.println(s);
             }
         }
     }
