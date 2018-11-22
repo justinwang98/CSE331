@@ -73,16 +73,16 @@ public class DataParser {
   }
 
   /**
-   * Builds the Graph based upon the paths file
+   * Builds the Graph based upon the paths file, storing coordinate data as strings
+   * to be parsed later as coordinates
    * @param filenamePaths file with the path info
    * @param g graph to be modified
-   * @param paths map that maps short names to coordinates
    * @throws MarvelParser.MalformedDataException if data is malformed
    * @throws CsvDataTypeMismatchException if csv data is mismatched
    * @throws CsvConstraintViolationException if violates csv constraints
    */
-  public static void parsePathData(String filenamePaths, Graph g, Map<String, Coordinates> paths)
-          throws MarvelParser.MalformedDataException, CsvDataTypeMismatchException, CsvConstraintViolationException {
+  public static void parsePathData(String filenamePaths, Graph g)
+          throws MarvelParser.MalformedDataException {
     String file = "./src/main/java/hw8/data/" + filenamePaths;
     BufferedReader reader = null;
     try { // parse paths
@@ -110,19 +110,19 @@ public class DataParser {
         String dest = tokens[1];
         double distance = Double.valueOf(tokens[2]);
 
-        CoordinateConverter converter = new CoordinateConverter();
-        Coordinates source = (Coordinates) converter.convert(src);
-        Coordinates destination = (Coordinates) converter.convert(dest);
+//        CoordinateConverter converter = new CoordinateConverter();
+//        Coordinates source = (Coordinates) converter.convert(src);
+//        Coordinates destination = (Coordinates) converter.convert(dest);
 
-        Graph.GraphNode srcNode = g.get(source);
-        Graph.GraphNode destNode = g.get(destination);
+        Graph.GraphNode srcNode = g.get(src);
+        Graph.GraphNode destNode = g.get(dest);
 
         if (srcNode == null) { // source isnt in graph
-          srcNode = new Graph.GraphNode(source);
+          srcNode = new Graph.GraphNode(src);
           g.add(srcNode);
         }
         if (destNode == null) {
-          destNode = new Graph.GraphNode(destination);
+          destNode = new Graph.GraphNode(dest);
           g.add(destNode);
         }
         srcNode.add(new Graph.GraphEdge(destNode, distance));

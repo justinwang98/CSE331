@@ -8,9 +8,11 @@ the controller, or none of these.  (See the assignment for details.)
 
 Model:
 - DataParser
+- CampusPathModel
 
 View:
--
+- CampusPathVC
 
 Controller:
+- CampusPathVC
 
