@@ -5,6 +5,8 @@ import hw6.MarvelParser;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * this is not an adt
  */
@@ -12,7 +14,7 @@ public class CampusPathsVC {
     /**
      * Creates a scanner to be utilized for sys.in
      */
-    private static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in, UTF_8.name());
 
     /**
      * main method, starts the program
@@ -20,7 +22,7 @@ public class CampusPathsVC {
      * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static void main(String[] args) throws MarvelParser.MalformedDataException {
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in, UTF_8.name());
         action("m"); // start
     }
 
