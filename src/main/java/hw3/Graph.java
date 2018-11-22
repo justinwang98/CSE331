@@ -73,8 +73,9 @@ public class Graph<E> {
             } else {
                 checkRep();
                 GraphEdge<?> otherEdge = (GraphEdge<?>) other;
-                if (otherEdge.getLabel() != null) {
-                    if (!otherEdge.getDestination().equals(this.destination) || !otherEdge.getLabel().equals(this.label)) {
+                String temp = (String) otherEdge.getLabel();
+                if (temp != null) {
+                    if (!otherEdge.getDestination().equals(this.destination) || !temp.equals(this.label)) {
                         return false;
                     }
                 }

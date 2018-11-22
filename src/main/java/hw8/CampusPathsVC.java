@@ -1,7 +1,6 @@
 package hw8;
 
 import hw6.MarvelParser;
-import org.checkerframework.checker.initialization.qual.Initialized;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +12,7 @@ public class CampusPathsVC {
     /**
      * Creates a scanner to be utilized for sys.in
      */
-    private static @Initialized Scanner scanner;
+    private static Scanner scanner = new Scanner(System.in);
 
     /**
      * main method, starts the program
@@ -21,7 +20,6 @@ public class CampusPathsVC {
      * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static void main(String[] args) throws MarvelParser.MalformedDataException {
-        scanner = new Scanner(System.in);
         action("m"); // start
     }
 

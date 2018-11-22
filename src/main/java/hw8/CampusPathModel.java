@@ -3,7 +3,6 @@ package hw8;
 import hw3.Graph;
 import hw6.MarvelParser;
 import hw7.MarvelPaths2;
-import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.*;
@@ -28,27 +27,23 @@ public class CampusPathModel {
     /**
      * mapping shortened names to long names
      */
-    private static @Initialized Map<String, String> nameToLong;
+    private static Map<String, String> nameToLong = new HashMap<String, String>();
 
     /**
      * mapping short names to coordinate strings
      */
-    private static @Initialized Map<String, String> coordData;
+    private static Map<String, String> coordData = new HashMap<String, String>();
 
     /**
      * Graph holding the data
      */
-    private static @Initialized Graph g;
+    private static Graph g = new Graph();
 
     /**
      * initiliazes the data
      * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static void init() throws MarvelParser.MalformedDataException {
-        nameToLong = new HashMap<String, String>();
-        coordData = new HashMap<String, String>();
-        g = new Graph();
-
         parseData();
     }
 
@@ -107,13 +102,14 @@ public class CampusPathModel {
 
         String srcCoords = coordData.get(src);
         String endCoords = coordData.get(dest);
+        String[] srcSplit = new String[0];
         List<Graph.GraphEdge> edgeList = new ArrayList<Graph.GraphEdge>();
         if (srcCoords != null && endCoords != null) {
           edgeList = MarvelPaths2.MarvelPaths2(srcCoords, endCoords, g);
+          srcSplit = srcCoords.split(",");
         }
         double totalDistance = 0.0;
 
-        String[] srcSplit = srcCoords.split(",");
         boolean first = true; // for the fencepost to get coord data for source
         double x = 0.0;
         double y = 0.0;

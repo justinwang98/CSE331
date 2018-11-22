@@ -108,10 +108,6 @@ public class DataParser {
         String dest = tokens[1];
         double distance = Double.valueOf(tokens[2]);
 
-//        CoordinateConverter converter = new CoordinateConverter();
-//        Coordinates source = (Coordinates) converter.convert(src);
-//        Coordinates destination = (Coordinates) converter.convert(dest);
-
         Graph.GraphNode srcNode = g.get(src);
         Graph.GraphNode destNode = g.get(dest);
 

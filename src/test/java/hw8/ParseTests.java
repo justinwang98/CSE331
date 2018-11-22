@@ -66,10 +66,6 @@ public class ParseTests {
     public void testPathsNodes() throws MarvelParser.MalformedDataException, CsvDataTypeMismatchException,
             CsvConstraintViolationException {
         setupPaths();
-//        assertTrue(g.getNodes().containsKey(new Coordinates(100.2,300.6)));
-//        assertTrue(g.getNodes().containsKey(new Coordinates(400.64,729.8)));
-//        assertTrue(g.getNodes().containsKey(new Coordinates(2243.48,4697.23)));
-//        assertTrue(g.getNodes().containsKey(new Coordinates(2384.43,1928.97)));
 
 
         assertTrue(g.getNodes().containsKey("100.2,300.6"));
