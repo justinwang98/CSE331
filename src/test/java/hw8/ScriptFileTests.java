@@ -1,6 +1,7 @@
 package hw8;
 
 import campuspaths.CampusPathsApplication;
+import hw6.MarvelParser;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +57,7 @@ public class ScriptFileTests {
   }
 
   @Test
-  public void testFiles() throws IOException {
+  public void testFiles() throws IOException, MarvelParser.MalformedDataException {
     for(File test : testFiles) {
       File expected = new File("src/test/java/hw8/" + test.getName().split("[.]")[0] + ".expected");
       String expectedContents = fileContents(expected);
@@ -72,7 +73,7 @@ public class ScriptFileTests {
    *     with name filename+".actual"; if that file already exists, it will be overwritten.
    * @returns the contents of the output file
    */
-  private String runScriptFile(File testFile) throws IOException {
+  private String runScriptFile(File testFile) throws IOException, MarvelParser.MalformedDataException {
 
     File actual = fileWithSuffix(testFile, "actual");
     HW8TestDriver td = new HW8TestDriver(testFile, actual);
