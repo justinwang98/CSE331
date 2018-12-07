@@ -99,6 +99,12 @@ public class CampusPathModel {
         return fullList;
     }
 
+    /**
+     * Returns a list containing the coords of the building
+     * @param name is the short name of the building
+     * @return a list of strings which has the building coords
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static List<String> findBuilding(String name) throws MarvelParser.MalformedDataException {
         init();
         List<String> temp = new ArrayList<String>();
@@ -106,6 +112,13 @@ public class CampusPathModel {
         return temp;
     }
 
+    /**
+     * Returns a list of strings containing the path coords
+     * @param src name of source building
+     * @param dest name of destination building
+     * @return a list of strings with the path coords
+     * @throws MarvelParser.MalformedDataException if data is malformed
+     */
     public static @Nullable List<String> findShortestPath2(String src, String dest)
             throws MarvelParser.MalformedDataException {
         init();
