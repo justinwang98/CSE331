@@ -1,0 +1,16 @@
+I added a method to my model to allow the hw10 to properly get the information needed for finding path.
+I added a method to my model to allow the hw10 to get individual coordinates for the building selections.
+
+a.
+Buttons are controllers, fetches are model, and the map itself are views. Each one should be separated in into it's own
+general method.
+
+b.
+I had to create more methods to specialize to give the proper format to be parsed by the javascript.
+
+c.
+I created a method to fetch the path and a method to fetch the individual buildings. This was done to split up
+unrelated tasks.
+
+d.
+None.

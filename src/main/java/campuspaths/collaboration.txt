@@ -1,0 +1,1 @@
+I collaborated with Eric Pan by discussing proper API usage and reactjs canvas usage.

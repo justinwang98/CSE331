@@ -4,12 +4,14 @@ import hw3.Graph;
 import hw6.MarvelParser;
 import hw7.MarvelPaths2;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
  * this is not an adt
  */
+@Service
 public class CampusPathModel {
 
     /**
@@ -73,9 +75,9 @@ public class CampusPathModel {
      * @throws MarvelParser.MalformedDataException if data is malformed
      */
     public static void parseData() throws MarvelParser.MalformedDataException {
-        DataParser parser = new DataParser();
-        parser.parseBuildingData("campus_buildings.tsv", nameToLong, coordData);
-        parser.parsePathData("campus_paths.tsv", g);
+        //DataParser parser = new DataParser();
+        DataParser.parseBuildingData("campus_buildings.tsv", nameToLong, coordData);
+        DataParser.parsePathData("campus_paths.tsv", g);
     }
 
     /**
@@ -95,6 +97,39 @@ public class CampusPathModel {
         }
 
         return fullList;
+    }
+
+    public static List<String> findBuilding(String name) throws MarvelParser.MalformedDataException {
+        init();
+        List<String> temp = new ArrayList<String>();
+        temp.add(coordData.get(name));
+        return temp;
+    }
+
+    public static @Nullable List<String> findShortestPath2(String src, String dest)
+            throws MarvelParser.MalformedDataException {
+        init();
+        boolean containsSRC = nameToLong.containsKey(src);
+        boolean containsDEST = nameToLong.containsKey(dest);
+        if (!containsSRC || !containsDEST) {
+            return null;
+        }
+        String srcCoords = coordData.get(src);
+        String endCoords = coordData.get(dest);
+        List<Graph.GraphEdge> edgeList = new ArrayList<Graph.GraphEdge>();
+        List<String> strList = new ArrayList<String>();
+        if (srcCoords != null && endCoords != null) {
+            edgeList = MarvelPaths2.MarvelPaths2(srcCoords, endCoords, g);
+        }
+        String prev = coordData.get(src);
+        if (edgeList != null) {
+            for (Graph.GraphEdge edge : edgeList) {
+                String curr = (String) edge.getDestination().getContent();
+                strList.add(prev + ":" + curr);
+                prev = curr;
+            }
+        }
+        return strList;
     }
 
     /**
@@ -123,6 +158,7 @@ public class CampusPathModel {
 
         String srcCoords = coordData.get(src);
         String endCoords = coordData.get(dest);
+
         String[] srcSplit = new String[0];
         List<Graph.GraphEdge> edgeList = new ArrayList<Graph.GraphEdge>();
         if (srcCoords != null && endCoords != null) {
